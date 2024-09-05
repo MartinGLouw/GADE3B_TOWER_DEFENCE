@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    static void Main(string[] args)
+    void Start()
     {
         EnemyFactory enemyFactory = new EnemyFactory();
         List<IDefender> defenders = new List<IDefender>
