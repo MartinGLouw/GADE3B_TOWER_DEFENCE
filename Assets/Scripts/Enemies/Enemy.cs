@@ -2,13 +2,17 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Enemy : IEnemy
+public abstract class Enemy : MonoBehaviour, IEnemy
 {
+    private MeatManager meatManager;
     public int Health { get; set; }
     public Vector2 Position { get; set; }
 
     public abstract void Attack();
-
+    void Start()
+    {
+        meatManager = FindObjectOfType<MeatManager>();
+    }
     public void AttackClosest(List<IDefender> defenders, Vector2 towerPosition)
     {
         IDefender closestDefender = null;
@@ -36,5 +40,18 @@ public abstract class Enemy : IEnemy
             Console.WriteLine($"{GetType().Name} attacks the closest defender!");
             closestDefender.Health -= 10; // Example damage value
         }
+    }
+    void Update()
+    {
+        if (Health <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        meatManager.AddMeat(5);
+        Destroy(gameObject);
     }
 }

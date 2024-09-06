@@ -11,12 +11,15 @@ public class Tower : MonoBehaviour
     private SphereCollider spherCollider;
 
     private List<IEnemy> enemiesInRange = new List<IEnemy>();
+    private MeatManager meatManager;
 
     void Start()
     {
         
         spherCollider.isTrigger = true;
         spherCollider.radius = attackRange;
+        meatManager = FindObjectOfType<MeatManager>();
+        
         
     }
 
@@ -51,5 +54,7 @@ public class Tower : MonoBehaviour
     {
         Debug.Log("Tower attacks!");
         enemy.Health -= attackDamage;
+        //meatManager.addMeat(5); //add meat when enemy dies
+        
     }
 }

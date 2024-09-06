@@ -1,10 +1,16 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    public MeatManager meatManager;
+    public TextMeshProUGUI meatText;
     void Start()
     {
+        meatManager = gameObject.AddComponent<MeatManager>();
+        meatText = GameObject.Find("MeatText").GetComponent<TextMeshProUGUI>();
         EnemyFactory enemyFactory = new EnemyFactory();
         List<IDefender> defenders = new List<IDefender>
         {
