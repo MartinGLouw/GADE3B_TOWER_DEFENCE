@@ -8,16 +8,16 @@ public class Tower : MonoBehaviour
     public int attackDamage = 50;
     public float attackCooldown = 1.0f;
     private float lastAttackTime;
-    public Vector3 towerPosition;
+    private SphereCollider spherCollider;
 
     private List<IEnemy> enemiesInRange = new List<IEnemy>();
 
     void Start()
     {
-        SphereCollider collider = gameObject.AddComponent<SphereCollider>();
-        collider.isTrigger = true;
-        collider.radius = attackRange;
-        towerPosition = transform.position;
+        
+        spherCollider.isTrigger = true;
+        spherCollider.radius = attackRange;
+        
     }
 
     void OnTriggerEnter(Collider other)
