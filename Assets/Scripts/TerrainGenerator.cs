@@ -13,13 +13,11 @@ public class TerrainGenerator : MonoBehaviour
     public GameObject DefenderPrefab;
     public Color gridColor = Color.white;
     public Color pathColor = Color.red;
-    public Color hoverColor = Color.green; // Color to highlight the hovered cell
-    private HashSet<Vector2Int> validDefenderLocations;
-    private List<List<Vector3>> paths;
+    private HashSet<Vector2Int> validDefenderLocations; // Changed to Vector2Int
+    public List<List<Vector3>> paths;
     private int gridSize = 10;
     private float gridSpacing;
     private LineRenderer[,] gridLines;
-    private Vector2Int? lastHoveredGridIndex = null; // Track the last hovered grid index
 
     void Start()
     {
@@ -40,53 +38,6 @@ public class TerrainGenerator : MonoBehaviour
         DrawGrid();
 
         Debug.Log("Terrain generation complete. Paths generated and valid defender locations set.");
-    }
-
-    void Update()
-    {
-        HandleMouseHover(); // Call hover handling every frame
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                Vector3 hitPoint = hit.point;
-                hitPoint.y = Terrain.activeTerrain.SampleHeight(hitPoint);
-
-                Debug.Log($"Mouse clicked at {hitPoint}");
-                PlaceDefender(hitPoint);
-            }
-        }
-    }
-
-    void HandleMouseHover()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
-        {
-            Vector3 hitPoint = hit.point;
-            hitPoint.y = Terrain.activeTerrain.SampleHeight(hitPoint);
-
-            Vector2Int gridIndex = GetGridIndex(hitPoint);
-
-            // Reset the color of the previously hovered cell
-            if (lastHoveredGridIndex.HasValue && lastHoveredGridIndex.Value != gridIndex)
-            {
-                ColorGrid(GetGridPosition(lastHoveredGridIndex.Value), gridColor);
-            }
-
-            // Highlight the current hovered grid cell
-            if (gridIndex.x >= 0 && gridIndex.x < gridSize && gridIndex.y >= 0 && gridIndex.y < gridSize)
-            {
-                ColorGrid(GetGridPosition(gridIndex), hoverColor);
-                lastHoveredGridIndex = gridIndex;
-            }
-        }
     }
 
     void PopulateValidDefenderLocations()
@@ -118,6 +69,7 @@ public class TerrainGenerator : MonoBehaviour
         {
             foreach (Vector3 node in path)
             {
+                // Only consider horizontal distance to avoid y-axis interference
                 float horizontalDistance = Vector2.Distance(new Vector2(location.x, location.z), new Vector2(node.x, node.z));
                 if (horizontalDistance < gridSpacing * 0.5f)
                 {
@@ -197,6 +149,24 @@ public class TerrainGenerator : MonoBehaviour
         return Mathf.PerlinNoise(xCoord, yCoord);
     }
 
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                Vector3 hitPoint = hit.point;
+                hitPoint.y = Terrain.activeTerrain.SampleHeight(hitPoint);
+
+                Debug.Log($"Mouse clicked at {hitPoint}");
+                PlaceDefender(hitPoint);
+            }
+        }
+    }
+
     void PlaceTower()
     {
         Vector2Int towerGridIndex = new Vector2Int(gridSize / 2, gridSize / 2);
@@ -207,13 +177,13 @@ public class TerrainGenerator : MonoBehaviour
 
     void GeneratePaths()
     {
-        float pathHeightOffset = 1.5f;
+        float pathHeightOffset = 1.5f; // Adjust this value as necessary
 
         for (int i = 0; i < numberOfPaths; i++)
         {
             int side = Random.Range(0, 4);
-            Vector3 startPosition;
 
+            Vector3 startPosition;
             switch (side)
             {
                 case 0:
@@ -230,12 +200,14 @@ public class TerrainGenerator : MonoBehaviour
                     break;
             }
 
-            startPosition.y = Terrain.activeTerrain.SampleHeight(startPosition) + pathHeightOffset;
+            startPosition.y = Terrain.activeTerrain.SampleHeight(startPosition) + pathHeightOffset; // Add offset
             List<Vector3> path = FindPath(startPosition, towerPosition);
             paths.Add(path);
 
+            // Create a new LineRenderer for the path
             GameObject pathLineObj = new GameObject($"Path_{i}");
             LineRenderer pathLine = pathLineObj.AddComponent<LineRenderer>();
+
             pathLine.startWidth = 0.5f;
             pathLine.endWidth = 0.5f;
             pathLine.positionCount = path.Count;
@@ -243,10 +215,11 @@ public class TerrainGenerator : MonoBehaviour
             pathLine.startColor = pathColor;
             pathLine.endColor = pathColor;
 
+            // Set positions for the path
             for (int j = 0; j < path.Count; j++)
             {
                 Vector3 nodePosition = path[j];
-                nodePosition.y = Terrain.activeTerrain.SampleHeight(nodePosition) + pathHeightOffset;
+                nodePosition.y = Terrain.activeTerrain.SampleHeight(nodePosition) + pathHeightOffset; // Add offset
                 pathLine.SetPosition(j, nodePosition);
             }
 
@@ -263,6 +236,10 @@ public class TerrainGenerator : MonoBehaviour
         int endX = Mathf.RoundToInt(end.x / gridSpacing);
         int endZ = Mathf.RoundToInt(end.z / gridSpacing);
 
+        // Simple pathfinding: move horizontally first, then vertically
+        Vector3 current = GetGridPosition(new Vector2Int(startX, startZ));
+        path.Add(current);
+
         while (startX != endX || startZ != endZ)
         {
             if (startX < endX) startX++;
@@ -271,8 +248,8 @@ public class TerrainGenerator : MonoBehaviour
             if (startZ < endZ) startZ++;
             else if (startZ > endZ) startZ--;
 
-            Vector3 currentPosition = new Vector3(startX * gridSpacing, Terrain.activeTerrain.SampleHeight(new Vector3(startX * gridSpacing, 0, startZ * gridSpacing)), startZ * gridSpacing);
-            path.Add(currentPosition);
+            current = GetGridPosition(new Vector2Int(startX, startZ));
+            path.Add(current);
         }
 
         return path;
@@ -280,40 +257,43 @@ public class TerrainGenerator : MonoBehaviour
 
     void DrawGrid()
     {
-        GameObject gridParent = new GameObject("Grid");
-
-        for (int i = 0; i <= gridSize; i++)
+        for (int x = 0; x <= gridSize; x++)
         {
-            for (int j = 0; j <= gridSize; j++)
+            for (int z = 0; z <= gridSize; z++)
             {
-                Vector3 start = new Vector3(i * gridSpacing, Terrain.activeTerrain.SampleHeight(new Vector3(i * gridSpacing, 0, 0)), 0);
-                Vector3 end = new Vector3(i * gridSpacing, Terrain.activeTerrain.SampleHeight(new Vector3(i * gridSpacing, 0, gridSize * gridSpacing)), gridSize * gridSpacing);
-
-                GameObject gridLineObj = new GameObject($"GridLine_{i}_{j}");
-                LineRenderer line = gridLineObj.AddComponent<LineRenderer>();
-                line.startWidth = 0.1f;
-                line.endWidth = 0.1f;
-                line.positionCount = 2;
-                line.material = new Material(Shader.Find("Sprites/Default"));
-                line.startColor = gridColor;
-                line.endColor = gridColor;
-                line.SetPosition(0, start);
-                line.SetPosition(1, end);
-
-                gridLines[i, j] = line;
+                Vector3 start = new Vector3(x * gridSpacing, 0, z * gridSpacing);
+                start.y = Terrain.activeTerrain.SampleHeight(start);
+                DrawLine(start, gridColor, x, z);
             }
         }
+    }
 
-        Debug.Log("Grid drawn.");
+    void DrawLine(Vector3 position, Color color, int x, int z)
+    {
+        GameObject lineObj = new GameObject($"GridLine_{x}_{z}");
+        LineRenderer lineRenderer = lineObj.AddComponent<LineRenderer>();
+        lineRenderer.startWidth = 0.1f;
+        lineRenderer.endWidth = 0.1f;
+        lineRenderer.positionCount = 4;
+        lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+        lineRenderer.startColor = color;
+        lineRenderer.endColor = color;
+
+        lineRenderer.SetPosition(0, position);
+        lineRenderer.SetPosition(1, new Vector3(position.x + gridSpacing, position.y, position.z));
+        lineRenderer.SetPosition(2, new Vector3(position.x + gridSpacing, position.y, position.z + gridSpacing));
+        lineRenderer.SetPosition(3, new Vector3(position.x, position.y, position.z + gridSpacing));
+
+        gridLines[x, z] = lineRenderer;
     }
 
     void ColorGrid(Vector3 position, Color color)
     {
-        LineRenderer line = gridLines[Mathf.RoundToInt(position.x / gridSpacing), Mathf.RoundToInt(position.z / gridSpacing)];
-        if (line != null)
+        Vector2Int gridIndex = GetGridIndex(position);
+        if (gridLines[gridIndex.x, gridIndex.y] != null)
         {
-            line.startColor = color;
-            line.endColor = color;
+            gridLines[gridIndex.x, gridIndex.y].startColor = color;
+            gridLines[gridIndex.x, gridIndex.y].endColor = color;
         }
     }
 }
