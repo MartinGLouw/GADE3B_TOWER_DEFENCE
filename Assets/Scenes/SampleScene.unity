@@ -494,7 +494,6 @@ MonoBehaviour:
   DefenderPrefab: {fileID: 2631794945017422838, guid: 121c36db8814f3d43b4bc2fb33917ef7, type: 3}
   gridColor: {r: 1, g: 1, b: 1, a: 1}
   pathColor: {r: 1, g: 0, b: 0, a: 1}
-  hoverColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!154 &324491512
 TerrainCollider:
   m_ObjectHideFlags: 0
@@ -2030,6 +2029,7 @@ GameObject:
   - component: {fileID: 1671343846}
   - component: {fileID: 1671343845}
   - component: {fileID: 1671343844}
+  - component: {fileID: 1671343847}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -2087,6 +2087,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1671343847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671343843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7845fb2360f7047429dc6647447d2e71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyPrefab: {fileID: 2631794945017422838, guid: 121c36db8814f3d43b4bc2fb33917ef7, type: 3}
+  spawnInterval: 2
+  terrainGenerator: {fileID: 324491511}
 --- !u!1 &1731453326
 GameObject:
   m_ObjectHideFlags: 0

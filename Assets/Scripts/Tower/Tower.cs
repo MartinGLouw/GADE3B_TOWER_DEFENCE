@@ -15,8 +15,8 @@ public class Tower : MonoBehaviour
     void Start()
     {
         
-//        spherCollider.isTrigger = true;
-//        spherCollider.radius = attackRange;
+        spherCollider.isTrigger = true;
+        spherCollider.radius = attackRange;
         
     }
 
