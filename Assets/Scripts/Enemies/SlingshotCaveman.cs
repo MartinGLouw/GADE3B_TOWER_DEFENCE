@@ -5,7 +5,8 @@ public class SlingshotCaveman : Enemy
 {
     public SlingshotCaveman()
     {
-        Health = 100;
+        Health = 150;
+        Damage = 20;
     }
 
     public override void Attack()

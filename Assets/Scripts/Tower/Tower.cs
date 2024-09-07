@@ -8,15 +8,16 @@ public class Tower : MonoBehaviour
     public int attackDamage = 50;
     public float attackCooldown = 1.0f;
     private float lastAttackTime;
-    private SphereCollider spherCollider;
+    private SphereCollider sphereCollider;
+    public int towerHealth = 500;
 
     private List<IEnemy> enemiesInRange = new List<IEnemy>();
 
     void Start()
     {
         
-        spherCollider.isTrigger = true;
-        spherCollider.radius = attackRange;
+        sphereCollider.isTrigger = true;
+        sphereCollider.radius = attackRange;
         
     }
 
@@ -27,6 +28,7 @@ public class Tower : MonoBehaviour
         {
             enemiesInRange.Add(enemy);
         }
+        
     }
 
     void OnTriggerExit(Collider other)

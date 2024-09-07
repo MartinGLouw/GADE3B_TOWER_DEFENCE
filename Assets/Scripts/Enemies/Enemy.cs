@@ -5,14 +5,18 @@ using UnityEngine;
 public abstract class Enemy : MonoBehaviour, IEnemy
 {
     private MeatManager meatManager;
+    public int Damage { get; set; }
     public int Health { get; set; }
     public Vector2 Position { get; set; }
+    private SphereCollider sphereCollider;
+    private Tower tower;
 
     public abstract void Attack();
     void Start()
     {
         meatManager = FindObjectOfType<MeatManager>();
     }
+    
     public void AttackClosest(List<IDefender> defenders, Vector2 towerPosition)
     {
         IDefender closestDefender = null;
@@ -53,5 +57,16 @@ public abstract class Enemy : MonoBehaviour, IEnemy
     {
         meatManager.AddMeat(5);
         Destroy(gameObject);
+      
+    }
+  
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (tower != null)
+        {
+            tower.towerHealth =- Damage;
+        }
+        
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public interface IEnemy
 {
+    int Damage { get; set; }
     void Attack();
     int Health { get; set; }
     Vector2 Position { get; set; }

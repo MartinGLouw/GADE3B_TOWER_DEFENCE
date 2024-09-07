@@ -4,7 +4,8 @@ public class ShieldCaveman : Enemy
 {
     public ShieldCaveman()
     {
-        Health = 100;
+        Health = 250;
+        Damage = 10;
     }
 
     public override void Attack()
