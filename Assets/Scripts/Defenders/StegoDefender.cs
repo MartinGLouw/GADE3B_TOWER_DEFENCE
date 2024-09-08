@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class StegoDefender : IDefender
+public class StegoDefender : Defender
 {
     public StegoDefender()
     {

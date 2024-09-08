@@ -1,7 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-
-public interface IDefender
+public abstract class Defender : MonoBehaviour, IDefender
 {
     public int MeatCost { get; set; }
     public int Damage { get; set; }
@@ -11,6 +12,7 @@ public interface IDefender
     }
 
     public int Health { get; set; }
-    public Vector2 Position { get; }
-    float AttRange { get; set; }
+    public Vector2 Position { get; set; }
+    
+    public float AttRange { get; set; }
 }

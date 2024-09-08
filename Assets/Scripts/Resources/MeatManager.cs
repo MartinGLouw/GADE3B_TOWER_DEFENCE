@@ -31,6 +31,6 @@ public class MeatManager : MonoBehaviour
     }
     void UpdateMeatText()
     {
-        meatText.text = $"Meat: {meat}";
+//        meatText.text = $"Meat: {meat}";
     }
 }

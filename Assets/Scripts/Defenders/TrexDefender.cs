@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class TrexDefender : IDefender
+public class TrexDefender : Defender
 {
     public TrexDefender()
     {

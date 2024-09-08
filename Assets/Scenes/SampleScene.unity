@@ -598,23 +598,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c712a73685797404f811d37023659584, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 256
-  height: 256
+  width: 500
+  height: 500
   scale: 2.5
   seed: 0
   towerPosition: {x: 0, y: 0, z: 0}
   numberOfPaths: 3
   Tower: {fileID: 1408273828292903490, guid: 00dd98d6e55940e4c9f8f8c5685926fa, type: 3}
-  DefenderPrefab: {fileID: 2631794945017422838, guid: 121c36db8814f3d43b4bc2fb33917ef7, type: 3}
+  DefenderPrefab: {fileID: 5066958387573949621, guid: 171cf0ae5a3a303498f43576a2aabceb, type: 3}
   RaptorPrefab: {fileID: 5066958387573949621, guid: 171cf0ae5a3a303498f43576a2aabceb, type: 3}
   StegoPrefab: {fileID: 312700385326121214, guid: 0e710fa8f3db0d14bb436e1aafd489e7, type: 3}
   TRexPrefab: {fileID: 6081860356511150135, guid: bfd6be8a259c4ac44a78d2fea39cf936, type: 3}
   gridColor: {r: 1, g: 1, b: 1, a: 1}
   pathColor: {r: 1, g: 0, b: 0, a: 1}
   canvas: {fileID: 387298762}
-  raptorButton: {fileID: 0}
-  trexButton: {fileID: 0}
-  stegoButton: {fileID: 0}
+  raptorButton: {fileID: 963375255}
+  trexButton: {fileID: 360777644}
+  stegoButton: {fileID: 167557891}
 --- !u!154 &324491512
 TerrainCollider:
   m_ObjectHideFlags: 0
@@ -1576,8 +1576,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.54298395, y: 0.45460096, z: -0.5326868, w: 0.46341255}
-  m_LocalPosition: {x: 160.20819, y: 287.57007, z: 133.05927}
+  m_LocalRotation: {x: 0.001754027, y: 0.6994113, z: -0.7147155, w: 0.0016254485}
+  m_LocalPosition: {x: 222.707, y: 505.20465, z: 227.7764}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1978,7 +1978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7845fb2360f7047429dc6647447d2e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyPrefab: {fileID: 2345060051289246128, guid: 007928e3a42d9f94e9e569c9f00a2c59, type: 3}
+  EnemyPrefab: {fileID: 4426775827656613681, guid: 007928e3a42d9f94e9e569c9f00a2c59, type: 3}
   spawnInterval: 5
   terrainGenerator: {fileID: 324491511}
 --- !u!1 &1731453326
@@ -2474,6 +2474,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClubCaveman
       objectReference: {fileID: 0}
+    - target: {fileID: 7233643483811967511, guid: 007928e3a42d9f94e9e569c9f00a2c59, type: 3}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 5796778622911980248, guid: 566f6f31bb7c6a04b8f62c644bfa7db0, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
