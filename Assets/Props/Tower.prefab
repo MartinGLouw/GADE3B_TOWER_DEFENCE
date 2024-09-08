@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 1068398661816773394}
   - component: {fileID: -4746247719363003745}
   - component: {fileID: 7036454794205995186}
-  - component: {fileID: 1483887795409779675}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
@@ -123,10 +122,6 @@ MonoBehaviour:
   attackRange: 5
   attackDamage: 50
   attackCooldown: 1
-  towerHealth: 500
-  AttRange: 100
-  projectilePrefab: {fileID: 0}
-  projectileSpeed: 10
 --- !u!135 &7036454794205995186
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -148,22 +143,3 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1.3296666
   m_Center: {x: 0, y: 0, z: 5.0909166}
---- !u!114 &1483887795409779675
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1408273828292903490}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d889cf571a24d79488dad7126019bdfa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackRange: 5
-  attackDamage: 50
-  attackCooldown: 1
-  towerHealth: 500
-  AttRange: 100
-  projectilePrefab: {fileID: 5796778622911980248, guid: 93b1e7a651c08cd4d8c72282914ccfba, type: 3}
-  projectileSpeed: 10
