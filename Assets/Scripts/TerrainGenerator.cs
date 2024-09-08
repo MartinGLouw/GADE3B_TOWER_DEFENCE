@@ -25,6 +25,8 @@ public class TerrainGenerator : MonoBehaviour
     public GameObject raptorButton;
     public GameObject trexButton;
     public GameObject stegoButton;
+    public MeatManager meatManager;
+    public IDefender defender;
 
     void Start()
     {
@@ -135,16 +137,39 @@ public class TerrainGenerator : MonoBehaviour
         }
     }
 
-    void PlaceDefender(Vector3 position)
+    // void PlaceDefender(Vector3 position)
+    // {
+    //     
+    //     Vector2Int gridIndex = GetGridIndex(position);
+    //     if (validDefenderLocations.Contains(gridIndex))
+    //     {
+    //         Vector3 gridPosition = GetGridPosition(gridIndex);
+    //         Instantiate(DefenderPrefab, gridPosition, Quaternion.identity);
+    //         validDefenderLocations.Remove(gridIndex);
+    //         Debug.Log($"Defender placed at Grid Index: {gridIndex} -> Position: {gridPosition}");
+    //     }
+    //     else
+    //     {
+    //         Debug.Log($"Failed to place defender at Grid Index: {gridIndex}. The location is either on a path or already occupied.");
+    //     }
+    // }
+    void PlaceDefender(Vector3 position, IDefender defender)
     {
-        
         Vector2Int gridIndex = GetGridIndex(position);
         if (validDefenderLocations.Contains(gridIndex))
         {
-            Vector3 gridPosition = GetGridPosition(gridIndex);
-            Instantiate(DefenderPrefab, gridPosition, Quaternion.identity);
-            validDefenderLocations.Remove(gridIndex);
-            Debug.Log($"Defender placed at Grid Index: {gridIndex} -> Position: {gridPosition}");
+            if (meatManager.meat >= defender.MeatCost)
+            {
+                Vector3 gridPosition = GetGridPosition(gridIndex);
+                Instantiate(DefenderPrefab, gridPosition, Quaternion.identity);
+                validDefenderLocations.Remove(gridIndex);
+                meatManager.AddMeat(-defender.MeatCost); // Deduct the meat cost
+                Debug.Log($"Defender placed at Grid Index: {gridIndex} -> Position: {gridPosition}. Meat remaining: {meatManager.meat}");
+            }
+            else
+            {
+                Debug.Log("Not enough meat to place defender.");
+            }
         }
         else
         {
@@ -218,9 +243,8 @@ public class TerrainGenerator : MonoBehaviour
 
                 Debug.Log($"Mouse clicked at {hitPoint}");
                 //Call UI
-                canvas.SetActive(true);
-                PlaceDefender(hitPoint);
-                canvas.SetActive(false);
+                PlaceDefender(hitPoint, new());
+               
             }
         }
     }
