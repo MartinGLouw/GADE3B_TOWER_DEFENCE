@@ -9,6 +9,7 @@ public interface IEnemy
     int Health { get; set; }
     Vector2 Position { get; set; }
     void AttackClosest(List<IDefender> defenders, Vector2 towerPosition);
+    float AttRange { get; set; }
 
    
 }

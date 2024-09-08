@@ -12,7 +12,7 @@ public class MeatManager : MonoBehaviour
 
     void Start()
     {
-        InvokeRepeating("GenerateMeat", 1.0f, 1.0f); // Generate gold every second
+        InvokeRepeating("GenerateMeat", 1.0f, 1.0f); //Generate meat every second
         UpdateMeatText();
     }
 

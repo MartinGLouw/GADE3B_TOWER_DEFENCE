@@ -6,6 +6,7 @@ public class ShieldCaveman : Enemy
     {
         Health = 250;
         Damage = 10;
+        AttRange = 20;
     }
 
     public override void Attack()

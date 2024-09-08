@@ -39,5 +39,19 @@ public class GameManager : MonoBehaviour
             defender.Defend(slingshotCaveman);
             defender.Defend(shieldCaveman);
         }
+
+        
+    }
+    public void SpawnRaptor()
+    {
+            
+    }
+    public void SpawnStego()
+    {
+            
+    }
+    public void SpawnTRex()
+    {
+            
     }
 }

@@ -10,7 +10,8 @@ public abstract class Enemy : MonoBehaviour, IEnemy
     public Vector2 Position { get; set; }
     private SphereCollider sphereCollider;
     private Tower tower;
-
+    public float AttRange { get; set; }
+    
     public abstract void Attack();
     void Start()
     {
@@ -46,6 +47,9 @@ public abstract class Enemy : MonoBehaviour, IEnemy
             closestDefender.Health -= 10; // Example damage value
         }
     }
+
+    
+
     void Update()
     {
         if (Health <= 0)
