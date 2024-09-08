@@ -11,6 +11,9 @@ public class TerrainGenerator : MonoBehaviour
     public int numberOfPaths = 3;
     public GameObject Tower;
     public GameObject DefenderPrefab;
+    public GameObject RaptorPrefab;
+    public GameObject StegoPrefab;
+    public GameObject TRexPrefab;
     public Color gridColor = Color.white;
     public Color pathColor = Color.red;
     private HashSet<Vector2Int> validDefenderLocations; // Changed to Vector2Int
@@ -18,9 +21,14 @@ public class TerrainGenerator : MonoBehaviour
     private int gridSize = 10;
     private float gridSpacing;
     private LineRenderer[,] gridLines;
+    public GameObject canvas;
+    public GameObject raptorButton;
+    public GameObject trexButton;
+    public GameObject stegoButton;
 
     void Start()
     {
+        canvas.SetActive(false);
         if (seed == 0)
         {
             seed = Random.Range(0, 100000);
@@ -81,8 +89,55 @@ public class TerrainGenerator : MonoBehaviour
         return false;
     }
 
+    public void SpawnRaptor(Vector3 position)
+    {
+        Vector2Int gridIndex = GetGridIndex(position);
+        if (validDefenderLocations.Contains(gridIndex))
+        {
+            Vector3 gridPosition = GetGridPosition(gridIndex);
+            Instantiate(RaptorPrefab, gridPosition, Quaternion.identity);
+            validDefenderLocations.Remove(gridIndex);
+            Debug.Log($"Defender placed at Grid Index: {gridIndex} -> Position: {gridPosition}");
+        }
+        else
+        {
+            Debug.Log($"Failed to place defender at Grid Index: {gridIndex}. The location is either on a path or already occupied.");
+        }
+    }
+    public void SpawnTrex(Vector3 position)
+    {
+        Vector2Int gridIndex = GetGridIndex(position);
+        if (validDefenderLocations.Contains(gridIndex))
+        {
+            Vector3 gridPosition = GetGridPosition(gridIndex);
+            Instantiate(TRexPrefab, gridPosition, Quaternion.identity);
+            validDefenderLocations.Remove(gridIndex);
+            Debug.Log($"Defender placed at Grid Index: {gridIndex} -> Position: {gridPosition}");
+        }
+        else
+        {
+            Debug.Log($"Failed to place defender at Grid Index: {gridIndex}. The location is either on a path or already occupied.");
+        }
+    }
+    public void SpawnStego(Vector3 position)
+    {
+        Vector2Int gridIndex = GetGridIndex(position);
+        if (validDefenderLocations.Contains(gridIndex))
+        {
+            Vector3 gridPosition = GetGridPosition(gridIndex);
+            Instantiate(StegoPrefab, gridPosition, Quaternion.identity);
+            validDefenderLocations.Remove(gridIndex);
+            Debug.Log($"Defender placed at Grid Index: {gridIndex} -> Position: {gridPosition}");
+        }
+        else
+        {
+            Debug.Log($"Failed to place defender at Grid Index: {gridIndex}. The location is either on a path or already occupied.");
+        }
+    }
+
     void PlaceDefender(Vector3 position)
     {
+        
         Vector2Int gridIndex = GetGridIndex(position);
         if (validDefenderLocations.Contains(gridIndex))
         {
@@ -162,9 +217,17 @@ public class TerrainGenerator : MonoBehaviour
                 hitPoint.y = Terrain.activeTerrain.SampleHeight(hitPoint);
 
                 Debug.Log($"Mouse clicked at {hitPoint}");
+                //Call UI
+                canvas.SetActive(true);
                 PlaceDefender(hitPoint);
+                canvas.SetActive(false);
             }
         }
+    }
+
+    public void ChosenButton()
+    {
+        
     }
 
     void PlaceTower()
