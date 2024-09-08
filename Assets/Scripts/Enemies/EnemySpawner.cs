@@ -30,6 +30,7 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnEnemy()
     {
+        int RandomRange = Random.Range(0, 3);
         List<List<Vector3>> paths = terrainGenerator.paths; // Get paths from TerrainGenerator
 
         if (paths.Count == 0)
@@ -38,6 +39,20 @@ public class EnemySpawner : MonoBehaviour
             return;
         }
 
+        if (RandomRange == 1)
+        {
+            
+        }
+        else if (RandomRange == 2)
+        {
+            
+        }
+        else if (RandomRange == 3)
+        {
+            
+        }
+        
+        
         int pathIndex = Random.Range(0, paths.Count);
         List<Vector3> path = paths[pathIndex];
 

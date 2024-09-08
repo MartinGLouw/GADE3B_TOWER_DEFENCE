@@ -15,6 +15,7 @@ public abstract class Enemy : MonoBehaviour, IEnemy
     void Start()
     {
         meatManager = FindObjectOfType<MeatManager>();
+        tower = FindObjectOfType<Tower>(); // Find the Tower in the scene
     }
     
     public void AttackClosest(List<IDefender> defenders, Vector2 towerPosition)
@@ -65,7 +66,7 @@ public abstract class Enemy : MonoBehaviour, IEnemy
     {
         if (tower != null)
         {
-            tower.towerHealth =- Damage;
+            tower.towerHealth -= Damage; // Assuming towerHealth is public in Tower
         }
         
     }

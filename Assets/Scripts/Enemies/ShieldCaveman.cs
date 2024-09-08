@@ -10,7 +10,6 @@ public class ShieldCaveman : Enemy
 
     public override void Attack()
     {
-        
-        Console.WriteLine("SlingshotCaveman attacks!");
+        Console.WriteLine("ShieldCaveman attacks!");
     }
 }

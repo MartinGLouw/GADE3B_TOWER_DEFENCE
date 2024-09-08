@@ -2099,8 +2099,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7845fb2360f7047429dc6647447d2e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyPrefab: {fileID: 2631794945017422838, guid: 121c36db8814f3d43b4bc2fb33917ef7, type: 3}
-  spawnInterval: 2
+  EnemyPrefab: {fileID: 2345060051289246128, guid: 007928e3a42d9f94e9e569c9f00a2c59, type: 3}
+  spawnInterval: 5
   terrainGenerator: {fileID: 324491511}
 --- !u!1 &1731453326
 GameObject:
