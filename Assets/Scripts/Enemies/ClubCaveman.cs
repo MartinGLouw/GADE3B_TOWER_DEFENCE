@@ -9,12 +9,12 @@ public class ClubCaveman : Enemy
     {
         Health = 100;
         Damage = 30;
-        AttRange = 40;
+        AttRange = 80;
     }
 
     public GameObject projectilePrefab; 
     public float projectileSpeed = 10f;
-
+    public float attackCooldown = 2f;
     public override void Attack()
     {
         throw new NotImplementedException();
@@ -47,7 +47,7 @@ public class ClubCaveman : Enemy
                     {
                         Console.WriteLine("ClubCaveman attacks!");
                         LaunchProjectile(closestDefenderInRange);
-                        yield return new WaitForSeconds(1f); 
+                        yield return new WaitForSeconds(attackCooldown); 
                     }
                 }
             }
