@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject EnemyPrefab;
-    public float spawnInterval = 2f;
+    public float spawnInterval = 10f;
     public TerrainGenerator terrainGenerator; // Reference to your TerrainGenerator script
 
     private float nextSpawnTime = 0f;

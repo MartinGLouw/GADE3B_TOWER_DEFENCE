@@ -7,22 +7,37 @@ public class ClubCaveman : Enemy
 {
     public ClubCaveman()
     {
-        Health = 100;
+        //Health = 100;
         Damage = 30;
         AttRange = 80;
     }
-
+    public int damage = 50;
+    public int health = 100;
     public GameObject projectilePrefab; 
     public float projectileSpeed = 10f;
     public float attackCooldown = 2f;
+    public MeatManager meatManager;
     public override void Attack()
     {
         throw new NotImplementedException();
+    }
+    void Update()
+    {
+        if (Health <= 0)
+        {
+            meatManager.meat += 30;
+            meatManager.UpdateMeatText();
+        }
     }
 
     private void Start()
     {
         StartCoroutine(AttackCoroutine());
+    }
+
+    private void MeatIncrease()
+    {
+        meatManager.meat = meatManager.meat + 20;
     }
 
     private IEnumerator AttackCoroutine()
@@ -71,4 +86,21 @@ public class ClubCaveman : Enemy
             Debug.LogError("Projectile prefab is missing a Rigidbody component!");
         }
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("DP"))
+        {
+            if(health > 0)
+            {
+                health -= damage;
+            }
+            else
+            {
+               
+                Destroy(gameObject);
+                MeatIncrease();
+            }
+        }
+    }
+    
 }

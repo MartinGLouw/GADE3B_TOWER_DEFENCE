@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     public List<Vector3> path;
-    public float speed = 2f;
+    public float speed = 4f;
     private int currentWaypoint = 0;
 
     void Update()

@@ -54,15 +54,16 @@ public abstract class Enemy : MonoBehaviour, IEnemy
     {
         if (Health <= 0)
         {
+            meatManager.meat += 30;
             Die();
         }
     }
 
     void Die()
     {
-        meatManager.AddMeat(5);
-        Destroy(gameObject);
-      
+        
+        
+      meatManager.UpdateMeatText();
     }
   
 

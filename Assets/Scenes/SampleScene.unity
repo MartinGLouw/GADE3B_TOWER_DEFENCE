@@ -1809,7 +1809,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meat: 20
-  meatPerSecond: 1
+  meatPerSecond: 3
   meatText: {fileID: 629647513}
 --- !u!4 &1452212550
 Transform:

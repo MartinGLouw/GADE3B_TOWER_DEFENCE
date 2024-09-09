@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -3990070393831153173}
   m_Layer: 0
   m_Name: EnProjectile
-  m_TagString: Untagged
+  m_TagString: EP
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

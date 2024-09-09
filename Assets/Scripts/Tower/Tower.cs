@@ -16,12 +16,13 @@ public class Tower : MonoBehaviour
     private List<IEnemy> enemiesInRange = new List<IEnemy>();
     public GameObject projectilePrefab;
     public float projectileSpeed = 10f;
-    
+    public int Health = 600;
+    public int Damage = 30;
     void Start()
     {
         StartCoroutine(TowerDefense());
-        sphereCollider.isTrigger = true;
-        sphereCollider.radius = attackRange;
+       // sphereCollider.isTrigger = true;
+       // sphereCollider.radius = attackRange;
         
     }
 
@@ -78,6 +79,19 @@ public class Tower : MonoBehaviour
         {
             enemiesInRange.Add(enemy);
         }
+        if (other.gameObject.CompareTag("EP"))
+        {
+            if(Health > 0)
+            {
+                Health -= Damage;
+            }
+            else
+            {
+               
+                Destroy(gameObject);
+                
+            }
+        }
         
     }
 
@@ -104,4 +118,5 @@ public class Tower : MonoBehaviour
         Debug.Log("Tower attacks!");
         enemy.Health -= attackDamage;
     }
+    
 }

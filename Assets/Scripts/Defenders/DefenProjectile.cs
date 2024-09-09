@@ -3,7 +3,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public float lifetime = 5f; // Adjust the lifetime as needed
-    public Defender defender;
+   
     private void Start()
     {
         // Start the lifetime timer

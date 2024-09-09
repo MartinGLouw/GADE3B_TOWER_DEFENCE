@@ -9,11 +9,13 @@ public class RaptorDefender : Defender
     public float projectileSpeed = 15f; // Adjust the speed as needed
     public float attackCooldown = 2f;
     public int meatCost = 20;
-
+    public int damage = 30;
+    public int health = 100;
+    private bool isTakingDamage = false;
     private void Start()
     {
+        Debug.Log(health + "===========================================");
         Health = 100;
-      
         Damage = 50;
         AttRange = 120;
         StartCoroutine(DefendCoroutine());
@@ -84,4 +86,29 @@ public class RaptorDefender : Defender
             Debug.LogError("Closest enemy in range does not have an IEnemy component!");
         }
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("EP") && !isTakingDamage)
+        {
+            
+            isTakingDamage = true; // Set the flag to prevent continuous damage
+
+            if (Health > 0)
+            {
+                Health -= damage;
+            }
+            else 
+            {
+                Destroy(gameObject);
+            }
+
+            StartCoroutine(ResetDamageFlag()); // Reset the flag after a short delay
+        }
+    }
+    private IEnumerator ResetDamageFlag()
+    {
+        yield return new WaitForSeconds(0.5f); // Adjust delay as needed
+        isTakingDamage = false;
+    }
+    
 }

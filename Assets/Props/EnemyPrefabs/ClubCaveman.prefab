@@ -29,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 4426775827656613681}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 331.77118, y: 68.56532, z: 95.938385}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 331.77118, y: 68.496, z: 96.359}
+  m_LocalScale: {x: 4.1114, y: 4.1114, z: 4.1114}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -120,6 +120,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0d77cde97658d8449151fed3393c6e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 50
+  health: 100
   projectilePrefab: {fileID: 5796778622911980248, guid: 566f6f31bb7c6a04b8f62c644bfa7db0, type: 3}
-  projectileSpeed: 20
+  projectileSpeed: 30
   attackCooldown: 5
+  meatManager: {fileID: 0}

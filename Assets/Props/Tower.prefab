@@ -12,11 +12,10 @@ GameObject:
   - component: {fileID: 5625633085082532398}
   - component: {fileID: 2939784667433670243}
   - component: {fileID: 1068398661816773394}
-  - component: {fileID: 7036454794205995186}
   - component: {fileID: -1890066493704235240}
   m_Layer: 0
   m_Name: Tower
-  m_TagString: Untagged
+  m_TagString: Defender
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -107,27 +106,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!135 &7036454794205995186
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1408273828292903490}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.3296666
-  m_Center: {x: 0, y: 0, z: 5.0909166}
 --- !u!114 &-1890066493704235240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,3 +125,5 @@ MonoBehaviour:
   AttRange: 100
   projectilePrefab: {fileID: 5796778622911980248, guid: 93b1e7a651c08cd4d8c72282914ccfba, type: 3}
   projectileSpeed: 30
+  Health: 600
+  Damage: 30
