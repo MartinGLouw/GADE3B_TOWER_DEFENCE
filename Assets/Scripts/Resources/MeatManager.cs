@@ -5,7 +5,7 @@ using TMPro;
 
 public class MeatManager : MonoBehaviour
 {
-    public int meat = 0;
+    public int meat = 20;
     public int meatPerSecond = 1;
     public TextMeshProUGUI meatText;
     
@@ -29,8 +29,8 @@ public class MeatManager : MonoBehaviour
         UpdateMeatText();
         Debug.Log($"Meat: {meat}");
     }
-    void UpdateMeatText()
+    public void UpdateMeatText()
     {
-//        meatText.text = $"Meat: {meat}";
+        meatText.text = $"Meat: {meat}";
     }
 }

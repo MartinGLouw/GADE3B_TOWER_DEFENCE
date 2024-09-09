@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Defender : MonoBehaviour, IDefender
 {
-    public int MeatCost { get; set; }
+    public virtual int MeatCost { get; set; }
     public int Damage { get; set; }
     public virtual void Defend(IEnemy enemy)
     {

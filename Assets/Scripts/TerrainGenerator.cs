@@ -25,6 +25,8 @@ public class TerrainGenerator : MonoBehaviour
     public GameObject raptorButton;
     public GameObject trexButton;
     public GameObject stegoButton;
+    public MeatManager meatManager;
+    public RaptorDefender raptorDefender;
 
     void Start()
     {
@@ -89,66 +91,98 @@ public class TerrainGenerator : MonoBehaviour
         return false;
     }
 
-    public void SpawnRaptor(Vector3 position)
-    {
-        Vector2Int gridIndex = GetGridIndex(position);
-        if (validDefenderLocations.Contains(gridIndex))
-        {
-            Vector3 gridPosition = GetGridPosition(gridIndex);
-            Instantiate(RaptorPrefab, gridPosition, Quaternion.identity);
-            validDefenderLocations.Remove(gridIndex);
-            Debug.Log($"Defender placed at Grid Index: {gridIndex} -> Position: {gridPosition}");
-        }
-        else
-        {
-            Debug.Log($"Failed to place defender at Grid Index: {gridIndex}. The location is either on a path or already occupied.");
-        }
-    }
-    public void SpawnTrex(Vector3 position)
-    {
-        Vector2Int gridIndex = GetGridIndex(position);
-        if (validDefenderLocations.Contains(gridIndex))
-        {
-            Vector3 gridPosition = GetGridPosition(gridIndex);
-            Instantiate(TRexPrefab, gridPosition, Quaternion.identity);
-            validDefenderLocations.Remove(gridIndex);
-            Debug.Log($"Defender placed at Grid Index: {gridIndex} -> Position: {gridPosition}");
-        }
-        else
-        {
-            Debug.Log($"Failed to place defender at Grid Index: {gridIndex}. The location is either on a path or already occupied.");
-        }
-    }
-    public void SpawnStego(Vector3 position)
-    {
-        Vector2Int gridIndex = GetGridIndex(position);
-        if (validDefenderLocations.Contains(gridIndex))
-        {
-            Vector3 gridPosition = GetGridPosition(gridIndex);
-            Instantiate(StegoPrefab, gridPosition, Quaternion.identity);
-            validDefenderLocations.Remove(gridIndex);
-            Debug.Log($"Defender placed at Grid Index: {gridIndex} -> Position: {gridPosition}");
-        }
-        else
-        {
-            Debug.Log($"Failed to place defender at Grid Index: {gridIndex}. The location is either on a path or already occupied.");
-        }
-    }
+    // public void SpawnRaptor(Vector3 position)
+    // {
+    //     Vector2Int gridIndex = GetGridIndex(position);
+    //     if (validDefenderLocations.Contains(gridIndex))
+    //     {
+    //         Vector3 gridPosition = GetGridPosition(gridIndex);
+    //         Instantiate(RaptorPrefab, gridPosition, Quaternion.identity);
+    //         validDefenderLocations.Remove(gridIndex);
+    //         Debug.Log($"Defender placed at Grid Index: {gridIndex} -> Position: {gridPosition}");
+    //     }
+    //     else
+    //     {
+    //         Debug.Log($"Failed to place defender at Grid Index: {gridIndex}. The location is either on a path or already occupied.");
+    //     }
+    // }
+    // public void SpawnTrex(Vector3 position)
+    // {
+    //     Vector2Int gridIndex = GetGridIndex(position);
+    //     if (validDefenderLocations.Contains(gridIndex))
+    //     {
+    //         Vector3 gridPosition = GetGridPosition(gridIndex);
+    //         Instantiate(TRexPrefab, gridPosition, Quaternion.identity);
+    //         validDefenderLocations.Remove(gridIndex);
+    //         Debug.Log($"Defender placed at Grid Index: {gridIndex} -> Position: {gridPosition}");
+    //     }
+    //     else
+    //     {
+    //         Debug.Log($"Failed to place defender at Grid Index: {gridIndex}. The location is either on a path or already occupied.");
+    //     }
+    // }
+    // public void SpawnStego(Vector3 position)
+    // {
+    //     Vector2Int gridIndex = GetGridIndex(position);
+    //     if (validDefenderLocations.Contains(gridIndex))
+    //     {
+    //         Vector3 gridPosition = GetGridPosition(gridIndex);
+    //         Instantiate(StegoPrefab, gridPosition, Quaternion.identity);
+    //         validDefenderLocations.Remove(gridIndex);
+    //         Debug.Log($"Defender placed at Grid Index: {gridIndex} -> Position: {gridPosition}");
+    //     }
+    //     else
+    //     {
+    //         Debug.Log($"Failed to place defender at Grid Index: {gridIndex}. The location is either on a path or already occupied.");
+    //     }
+    // }
 
     void PlaceDefender(Vector3 position)
     {
-        
         Vector2Int gridIndex = GetGridIndex(position);
-        if (validDefenderLocations.Contains(gridIndex))
+       
+
+        if (meatManager.meat >= raptorDefender.meatCost)
         {
-            Vector3 gridPosition = GetGridPosition(gridIndex);
-            Instantiate(DefenderPrefab, gridPosition, Quaternion.identity);
-            validDefenderLocations.Remove(gridIndex);
-            Debug.Log($"Defender placed at Grid Index: {gridIndex} -> Position: {gridPosition}");
+            if (validDefenderLocations.Contains(gridIndex))
+            {
+                Debug.Log("Defender Cost = " + raptorDefender.meatCost);
+                Vector3 gridPosition = GetGridPosition(gridIndex);
+                Instantiate(DefenderPrefab, gridPosition, Quaternion.identity);
+                validDefenderLocations.Remove(gridIndex);
+                meatManager.meat = (meatManager.meat - raptorDefender.meatCost);// Deduct the meat cost
+                meatManager.UpdateMeatText();
+                Debug.Log($"Defender placed at Grid Index: {gridIndex} -> Position: {gridPosition}");
+            }
+            else
+            {
+                Debug.Log($"Failed to place defender at Grid Index: {gridIndex}. The location is either on a path or already occupied.");
+            }
         }
         else
         {
-            Debug.Log($"Failed to place defender at Grid Index: {gridIndex}. The location is either on a path or already occupied.");
+            Debug.Log("Not enough meat to place defender.");
+        }
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                Vector3 hitPoint = hit.point;
+                hitPoint.y = Terrain.activeTerrain.SampleHeight(hitPoint);
+
+                Debug.Log($"Mouse clicked at {hitPoint}");
+                //Call UI
+                
+                PlaceDefender(hitPoint);
+                
+            }
         }
     }
 
@@ -204,26 +238,7 @@ public class TerrainGenerator : MonoBehaviour
         return Mathf.PerlinNoise(xCoord, yCoord);
     }
 
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                Vector3 hitPoint = hit.point;
-                hitPoint.y = Terrain.activeTerrain.SampleHeight(hitPoint);
-
-                Debug.Log($"Mouse clicked at {hitPoint}");
-                //Call UI
-                canvas.SetActive(true);
-                PlaceDefender(hitPoint);
-                canvas.SetActive(false);
-            }
-        }
-    }
+    
 
     public void ChosenButton()
     {

@@ -8,14 +8,19 @@ public class RaptorDefender : Defender
     public GameObject projectilePrefab; // Add this to assign the projectile prefab in the Inspector
     public float projectileSpeed = 15f; // Adjust the speed as needed
     public float attackCooldown = 2f;
+    public int meatCost = 20;
+
     private void Start()
     {
         Health = 100;
-        MeatCost = 20;
+      
         Damage = 50;
         AttRange = 120;
         StartCoroutine(DefendCoroutine());
     }
+
+    
+    
 
     private IEnumerator DefendCoroutine()
     {
@@ -35,14 +40,14 @@ public class RaptorDefender : Defender
                         .OrderBy(enemy => Vector3.Distance(transform.position, enemy.transform.position))
                         .FirstOrDefault();
 
-                     if (closestEnemyInRange != null)
-                {
-                    Console.WriteLine("Raptor attacks!");
-                    LaunchProjectile(closestEnemyInRange);
+                    if (closestEnemyInRange != null)
+                    {
+                        Console.WriteLine("Raptor attacks!");
+                        LaunchProjectile(closestEnemyInRange);
 
-                    // Wait for the attack cooldown before attacking again
-                    yield return new WaitForSeconds(attackCooldown); 
-                }
+                        // Wait for the attack cooldown before attacking again
+                        yield return new WaitForSeconds(attackCooldown);
+                    }
                 }
             }
 

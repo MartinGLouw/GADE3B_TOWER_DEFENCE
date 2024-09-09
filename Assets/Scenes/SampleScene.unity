@@ -542,6 +542,8 @@ MonoBehaviour:
   raptorButton: {fileID: 963375255}
   trexButton: {fileID: 360777644}
   stegoButton: {fileID: 167557891}
+  meatManager: {fileID: 1452212549}
+  raptorDefender: {fileID: 8516783258852473255, guid: 171cf0ae5a3a303498f43576a2aabceb, type: 3}
 --- !u!154 &324491512
 TerrainCollider:
   m_ObjectHideFlags: 0
@@ -889,7 +891,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &387298763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1806,7 +1808,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b25fb40dea58d9f409450d908ec3d4b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meat: 0
+  meat: 20
   meatPerSecond: 1
   meatText: {fileID: 629647513}
 --- !u!4 &1452212550
