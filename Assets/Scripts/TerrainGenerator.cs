@@ -16,7 +16,7 @@ public class TerrainGenerator : MonoBehaviour
     public GameObject TRexPrefab;
     public Color gridColor = Color.white;
     public Color pathColor = Color.red;
-    private HashSet<Vector2Int> validDefenderLocations; // Changed to Vector2Int
+    private HashSet<Vector2Int> validDefenderLocations; 
     public List<List<Vector3>> paths;
     private int gridSize = 10;
     private float gridSpacing;
@@ -79,7 +79,7 @@ public class TerrainGenerator : MonoBehaviour
         {
             foreach (Vector3 node in path)
             {
-                // Only consider horizontal distance to avoid y-axis interference
+                //Only consider horizontal distance to avoid y-axis interference
                 float horizontalDistance = Vector2.Distance(new Vector2(location.x, location.z), new Vector2(node.x, node.z));
                 if (horizontalDistance < gridSpacing * 0.5f)
                 {
@@ -150,7 +150,7 @@ public class TerrainGenerator : MonoBehaviour
                 Vector3 gridPosition = GetGridPosition(gridIndex);
                 Instantiate(DefenderPrefab, gridPosition, Quaternion.identity);
                 validDefenderLocations.Remove(gridIndex);
-                meatManager.meat = (meatManager.meat - raptorDefender.meatCost);// Deduct the meat cost
+                meatManager.meat = (meatManager.meat - raptorDefender.meatCost);//Deduct the meat cost
                 meatManager.UpdateMeatText();
                 Debug.Log($"Defender placed at Grid Index: {gridIndex} -> Position: {gridPosition}");
             }
@@ -255,7 +255,7 @@ public class TerrainGenerator : MonoBehaviour
 
     void GeneratePaths()
     {
-        float pathHeightOffset = 1.5f; // Adjust this value as necessary
+        float pathHeightOffset = 1.5f; 
 
         for (int i = 0; i < numberOfPaths; i++)
         {
@@ -278,7 +278,7 @@ public class TerrainGenerator : MonoBehaviour
                     break;
             }
 
-            startPosition.y = Terrain.activeTerrain.SampleHeight(startPosition) + pathHeightOffset; // Add offset
+            startPosition.y = Terrain.activeTerrain.SampleHeight(startPosition) + pathHeightOffset; //Add offset
             List<Vector3> path = FindPath(startPosition, towerPosition);
             paths.Add(path);
 
@@ -297,7 +297,7 @@ public class TerrainGenerator : MonoBehaviour
             for (int j = 0; j < path.Count; j++)
             {
                 Vector3 nodePosition = path[j];
-                nodePosition.y = Terrain.activeTerrain.SampleHeight(nodePosition) + pathHeightOffset; // Add offset
+                nodePosition.y = Terrain.activeTerrain.SampleHeight(nodePosition) + pathHeightOffset; //Add offset
                 pathLine.SetPosition(j, nodePosition);
             }
 
@@ -313,8 +313,7 @@ public class TerrainGenerator : MonoBehaviour
         int startZ = Mathf.RoundToInt(start.z / gridSpacing);
         int endX = Mathf.RoundToInt(end.x / gridSpacing);
         int endZ = Mathf.RoundToInt(end.z / gridSpacing);
-
-        // Simple pathfinding: move horizontally first, then vertically
+        
         Vector3 current = GetGridPosition(new Vector2Int(startX, startZ));
         path.Add(current);
 

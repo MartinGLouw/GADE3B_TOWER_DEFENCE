@@ -16,7 +16,7 @@ public abstract class Enemy : MonoBehaviour, IEnemy
     void Start()
     {
         meatManager = FindObjectOfType<MeatManager>();
-        tower = FindObjectOfType<Tower>(); // Find the Tower in the scene
+        tower = FindObjectOfType<Tower>();
     }
     
     public void AttackClosest(List<IDefender> defenders, Vector2 towerPosition)
@@ -37,12 +37,12 @@ public abstract class Enemy : MonoBehaviour, IEnemy
         float distanceToTower = Vector2.Distance(Position, towerPosition);
         if (distanceToTower < closestDistance)
         {
-            // Attack the tower
+            //Attack the tower
             Console.WriteLine($"{GetType().Name} attacks the tower!");
         }
         else if (closestDefender != null)
         {
-            // Attack the closest defender
+            //Attack the closest defender
             Console.WriteLine($"{GetType().Name} attacks the closest defender!");
             closestDefender.Health -= 10; // Example damage value
         }
@@ -71,7 +71,7 @@ public abstract class Enemy : MonoBehaviour, IEnemy
     {
         if (tower != null)
         {
-            tower.towerHealth -= Damage; // Assuming towerHealth is public in Tower
+            tower.towerHealth -= Damage; 
         }
         
     }

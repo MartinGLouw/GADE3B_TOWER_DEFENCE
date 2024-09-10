@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class RaptorDefender : Defender
 {
-    public GameObject projectilePrefab; // Add this to assign the projectile prefab in the Inspector
-    public float projectileSpeed = 15f; // Adjust the speed as needed
+    public GameObject projectilePrefab; 
+    public float projectileSpeed = 15f; //Adjust the speed as needed
     public float attackCooldown = 2f;
     public int meatCost = 20;
     public int damage = 30;
@@ -16,12 +16,12 @@ public class RaptorDefender : Defender
     public Slider healthSlider;
     private void Start()
     {
-        Debug.Log(health + "===========================================");
+        
         Health = 100;
         Damage = 50;
         AttRange = 120;
-        healthSlider.maxValue = Health; // Assuming 'Health' holds the max health
-        healthSlider.minValue = 0;  // Set the slider's maximum value
+        healthSlider.maxValue = Health; 
+        healthSlider.minValue = 0; 
         healthSlider.value = Health;
         StartCoroutine(DefendCoroutine());
     }
@@ -52,7 +52,7 @@ public class RaptorDefender : Defender
                         Console.WriteLine("Raptor attacks!");
                         LaunchProjectile(closestEnemyInRange);
 
-                        // Wait for the attack cooldown before attacking again
+                        //Wait for the attack cooldown before attacking again
                         yield return new WaitForSeconds(attackCooldown);
                     }
                 }
@@ -78,12 +78,12 @@ public class RaptorDefender : Defender
         }
     }
 
-    // You can keep the Defend method for other types of defense if needed
+    //You can keep the Defend method for other types of defense if needed
     public override void Defend(IEnemy enemy)
     {
         if (enemy != null)
         {
-            Console.WriteLine("Raptor Bites!"); // This might be used for a close-range attack
+            Console.WriteLine("Raptor Bites!"); //This might be used for a close-range attack
             enemy.Health -= Damage;
         }
         else
@@ -96,7 +96,7 @@ public class RaptorDefender : Defender
         if (other.gameObject.CompareTag("EP") && !isTakingDamage)
         {
             
-            isTakingDamage = true; // Set the flag to prevent continuous damage
+            isTakingDamage = true; //Set the flag to prevent continuous damage
 
             if (Health > 0)
             {
@@ -108,12 +108,12 @@ public class RaptorDefender : Defender
                 Destroy(gameObject);
             }
 
-            StartCoroutine(ResetDamageFlag()); // Reset the flag after a short delay
+            StartCoroutine(ResetDamageFlag()); //Reset the flag after a short delay
         }
     }
     private IEnumerator ResetDamageFlag()
     {
-        yield return new WaitForSeconds(0.5f); // Adjust delay as needed
+        yield return new WaitForSeconds(0.5f); //Adjust delay as needed
         isTakingDamage = false;
     }
     

@@ -34,8 +34,8 @@ public class ClubCaveman : Enemy
 
     private void Start()
     {
-        healthSlider.maxValue = health; // Assuming 'Health' holds the max health
-        healthSlider.minValue = 0;  // Set the slider's maximum value
+        healthSlider.maxValue = health; 
+        healthSlider.minValue = 0;  
         healthSlider.value = health;
         StartCoroutine(AttackCoroutine());
     }

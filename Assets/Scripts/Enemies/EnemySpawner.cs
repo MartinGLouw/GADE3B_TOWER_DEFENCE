@@ -5,14 +5,14 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject EnemyPrefab;
     public float spawnInterval = 10f;
-    public TerrainGenerator terrainGenerator; // Reference to your TerrainGenerator script
+    public TerrainGenerator terrainGenerator; 
 
     private float nextSpawnTime = 0f;
     
 
     void Start()
     {
-        // Make sure you assign the TerrainGenerator reference in the inspector
+        
         if (terrainGenerator == null)
         {
             Debug.LogError("EnemySpawner needs a reference to the TerrainGenerator!");
@@ -31,7 +31,7 @@ public class EnemySpawner : MonoBehaviour
     void SpawnEnemy()
     {
         int RandomRange = Random.Range(0, 3);
-        List<List<Vector3>> paths = terrainGenerator.paths; // Get paths from TerrainGenerator
+        List<List<Vector3>> paths = terrainGenerator.paths; //Get paths from TerrainGenerator
 
         if (paths.Count == 0)
         {
