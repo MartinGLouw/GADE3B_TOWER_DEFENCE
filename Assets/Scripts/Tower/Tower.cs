@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using TMPro;
+using Unity.VisualScripting;
 
 public class Tower : MonoBehaviour
 {
@@ -18,13 +20,23 @@ public class Tower : MonoBehaviour
     public float projectileSpeed = 10f;
     public int Health = 600;
     public int Damage = 30;
+    public bool dead;
+    public GameManager gameManager;
+    public GameObject endScreenCanvas;
+    
+   
+    
     void Start()
     {
+        dead = false;
+        gameManager = FindObjectOfType<GameManager>();
+        endScreenCanvas.SetActive(false);
         StartCoroutine(TowerDefense());
-       // sphereCollider.isTrigger = true;
-       // sphereCollider.radius = attackRange;
         
     }
+
+    
+    
 
     private IEnumerator TowerDefense()
     {
@@ -46,8 +58,8 @@ public class Tower : MonoBehaviour
 
                     if (closestEnemyInRange != null)
                     {
-                        Console.WriteLine("Raptor attacks!"); // Updated message
-                        LaunchProjectile(closestEnemyInRange); // Launch projectile instead of direct damage
+                        Console.WriteLine("Raptor attacks!"); //Updated message
+                        LaunchProjectile(closestEnemyInRange); //Launch projectile
                         yield return new WaitForSeconds(attackCooldown);
                     }
                 }
@@ -84,6 +96,7 @@ public class Tower : MonoBehaviour
             if(Health > 0)
             {
                 Health -= Damage;
+                gameManager.UpdateTowerHealthText();
             }
             else
             {
@@ -106,11 +119,14 @@ public class Tower : MonoBehaviour
 
     void Update()
     {
+        gameManager.UpdateTowerHealthText();
+        CheckDeath();
         if (enemiesInRange.Count > 0 && Time.time > lastAttackTime + attackCooldown)
         {
             Attack(enemiesInRange[0]);
             lastAttackTime = Time.time;
         }
+        
     }
 
     void Attack(IEnemy enemy)
@@ -118,5 +134,17 @@ public class Tower : MonoBehaviour
         Debug.Log("Tower attacks!");
         enemy.Health -= attackDamage;
     }
+
+    void CheckDeath()
+    {
+        if (Health == 0)
+        {
+            dead = true;
+            endScreenCanvas.SetActive(true);
+          
+        }
+    }
+    
+   
     
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -7,9 +8,12 @@ public class GameManager : MonoBehaviour
 {
     public MeatManager meatManager;
     public TextMeshProUGUI meatText;
+    public TextMeshProUGUI towerHealthText;
+    public Tower tower;
     void Start()
     {
-       
+        
+        UpdateTowerHealthText();
         EnemyFactory enemyFactory = new EnemyFactory();
         List<IDefender> defenders = new List<IDefender>
         {
@@ -41,16 +45,17 @@ public class GameManager : MonoBehaviour
 
         
     }
-    public void SpawnRaptor()
+
+    public void Update()
     {
-            
+        towerHealthText.text = $"Tower Health: {tower.Health}";
     }
-    public void SpawnStego()
+
+  
+
+    public void UpdateTowerHealthText()
     {
-            
+        towerHealthText.text = $"Tower Health: {tower.Health}";
     }
-    public void SpawnTRex()
-    {
-            
-    }
+   
 }
