@@ -47,7 +47,7 @@ public class TerrainGenerator : MonoBehaviour
         PopulateValidDefenderLocations();
         DrawGrid();
 
-        Debug.Log("Terrain generation complete. Paths generated and valid defender locations set.");
+        
     }
 
     void PopulateValidDefenderLocations()
