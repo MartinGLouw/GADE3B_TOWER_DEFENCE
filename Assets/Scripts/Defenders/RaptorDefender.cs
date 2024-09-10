@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RaptorDefender : Defender
 {
@@ -12,12 +13,16 @@ public class RaptorDefender : Defender
     public int damage = 30;
     public int health = 100;
     private bool isTakingDamage = false;
+    public Slider healthSlider;
     private void Start()
     {
         Debug.Log(health + "===========================================");
         Health = 100;
         Damage = 50;
         AttRange = 120;
+        healthSlider.maxValue = Health; // Assuming 'Health' holds the max health
+        healthSlider.minValue = 0;  // Set the slider's maximum value
+        healthSlider.value = Health;
         StartCoroutine(DefendCoroutine());
     }
 
@@ -96,6 +101,7 @@ public class RaptorDefender : Defender
             if (Health > 0)
             {
                 Health -= damage;
+                healthSlider.value = Health;
             }
             else 
             {

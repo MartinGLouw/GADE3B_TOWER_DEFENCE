@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ClubCaveman : Enemy
 {
@@ -17,6 +18,7 @@ public class ClubCaveman : Enemy
     public float projectileSpeed = 10f;
     public float attackCooldown = 2f;
     public MeatManager meatManager;
+    public Slider healthSlider;
     public override void Attack()
     {
         throw new NotImplementedException();
@@ -32,6 +34,9 @@ public class ClubCaveman : Enemy
 
     private void Start()
     {
+        healthSlider.maxValue = health; // Assuming 'Health' holds the max health
+        healthSlider.minValue = 0;  // Set the slider's maximum value
+        healthSlider.value = health;
         StartCoroutine(AttackCoroutine());
     }
 
@@ -93,8 +98,9 @@ public class ClubCaveman : Enemy
             if(health > 0)
             {
                 health -= damage;
+                healthSlider.value = health;
             }
-            else
+            else if (health == 0)
             {
                
                 Destroy(gameObject);
