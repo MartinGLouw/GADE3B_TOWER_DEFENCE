@@ -6,6 +6,7 @@ public class ShieldProjectile : MonoBehaviour
     public float lifetime = 5f; 
     public float returnSpeed = 10f; 
     private ShieldCaveman shieldCaveman; 
+    public int damage = 20;
 
     private void Start()
     {

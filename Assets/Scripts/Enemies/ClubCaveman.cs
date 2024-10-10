@@ -10,7 +10,7 @@ public class ClubCaveman : Enemy
     {
         //Health = 100;
         Damage = 30;
-        AttRange = 80;
+        AttRange = 120;
     }
     public int damage = 50;
     public int health = 100;

@@ -1,8 +1,9 @@
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class DefenProjectile : MonoBehaviour
 {
     public float lifetime = 5f; 
+    public int damage = 30;
    
     private void Start()
     {
