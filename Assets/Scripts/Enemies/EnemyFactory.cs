@@ -10,7 +10,7 @@ public class EnemyFactory
             case "ClubCaveman":
                 return new ClubCaveman();
             case "SlingshotCaveman":
-                return new SlingshotCaveman();
+                return new NetCaveman();
             case "ShieldCaveman":
                 return new ShieldCaveman();
             default:
