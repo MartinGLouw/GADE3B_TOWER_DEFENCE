@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -19,6 +20,7 @@ public class ShieldCaveman : Enemy
     public float attackCooldown = 3f;
     public MeatManager meatManager;
     public Slider healthSlider;
+    public float explosionRadius = 5f; //AoE radius for shield throw
 
     private void Start()
     {
@@ -30,24 +32,28 @@ public class ShieldCaveman : Enemy
 
     public override void Attack()
     {
-        throw new System.NotImplementedException();
     }
 
     private void Update()
     {
+        if (healthSlider != null)
+        {
+            healthSlider.transform.position = Camera.main.WorldToScreenPoint(transform.position + Vector3.up);
+            healthSlider.value = Health; 
+        }
+        
         if (Health <= 0)
         {
-            meatManager.meat += 50; 
+            meatManager.meat += 50;
             meatManager.UpdateMeatText();
         }
     }
 
     private void MeatIncrease()
     {
-        meatManager.meat = meatManager.meat + 40; 
+        meatManager.meat += 40; 
     }
 
-    
     private IEnumerator ShieldThrowCoroutine()
     {
         while (true)
@@ -68,8 +74,8 @@ public class ShieldCaveman : Enemy
 
                     if (closestDefenderInRange != null)
                     {
-                        Debug.Log("ShieldCaveman throws a boomerang shield!");
-                        StartCoroutine(ThrowBoomerangShield(closestDefenderInRange));
+                        Debug.Log("ShieldCaveman throws a heavy shield!");
+                        ThrowShield(closestDefenderInRange);
                         yield return new WaitForSeconds(attackCooldown);
                     }
                 }
@@ -79,48 +85,16 @@ public class ShieldCaveman : Enemy
         }
     }
 
-    private IEnumerator ThrowBoomerangShield(GameObject target)
+    private void ThrowShield(GameObject target)
     {
         GameObject shieldProjectile = Instantiate(shieldProjectilePrefab, transform.position, Quaternion.identity);
         Rigidbody shieldRigidbody = shieldProjectile.GetComponent<Rigidbody>();
-        Vector3 initialPosition = transform.position;
 
         if (shieldRigidbody != null)
         {
             Vector3 direction = (target.transform.position - transform.position).normalized;
-            bool returning = false;
-            
-            //outward throw and return
-            while (true)
-            {
-                if (!returning) //Throw the shield outward
-                {
-                    shieldRigidbody.velocity = direction * projectileSpeed;
-
-                    if (Vector3.Distance(shieldProjectile.transform.position, target.transform.position) < 1f)
-                    {
-                        //Hit the target defender
-                        Debug.Log("Shield hits the defender on the outward path!");
-                        DealDamageToDefender(target);
-                        returning = true; // Switch to return phase
-                    }
-                }
-                else //Return the shield
-                {
-                    Vector3 returnDirection = (initialPosition - shieldProjectile.transform.position).normalized;
-                    shieldRigidbody.velocity = returnDirection * projectileSpeed;
-
-                    if (Vector3.Distance(shieldProjectile.transform.position, initialPosition) < 1f)
-                    {
-                        //Return to the ShieldCaveman
-                        Debug.Log("Shield returns to ShieldCaveman!");
-                        Destroy(shieldProjectile);
-                        break;
-                    }
-                }
-
-                yield return null;
-            }
+            shieldRigidbody.velocity = direction * projectileSpeed;
+            StartCoroutine(ReturnShield(shieldProjectile, target));
         }
         else
         {
@@ -128,17 +102,35 @@ public class ShieldCaveman : Enemy
         }
     }
 
-   
-    private void DealDamageToDefender(GameObject defender)
+    private IEnumerator ReturnShield(GameObject shieldProjectile, GameObject target)
+    {
+        yield return new WaitForSeconds(0.5f); 
+        
+        HitDefender(target);
+        
+        Destroy(shieldProjectile);
+    }
+
+    public void HitDefender(GameObject defender)
     {
         Defender defenderScript = defender.GetComponent<Defender>();
+
         if (defenderScript != null)
         {
-            defenderScript.Health -= damage;
-            Debug.Log("Dealt " + damage + " damage to defender!");
+        
+            defenderScript.Health -= damage; 
+            
+            if (defenderScript.Health <= 0)
+            {
+                Destroy(defender); 
+            }
+        }
+        else
+        {
+            Debug.LogError("Hit object does not have a Defender component!");
         }
     }
-    
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("DP"))
@@ -148,7 +140,7 @@ public class ShieldCaveman : Enemy
                 health -= damage;
                 healthSlider.value = health;
             }
-            else if (health == 0)
+            else if (health <= 0)
             {
                 Destroy(gameObject);
                 MeatIncrease();

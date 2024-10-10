@@ -27,9 +27,9 @@ public class GameManager : MonoBehaviour
         clubCaveman.Position = new Vector2(1, 0);
         clubCaveman.AttackClosest(defenders, towerPosition);
 
-        IEnemy slingshotCaveman = enemyFactory.CreateEnemy("SlingshotCaveman");
-        slingshotCaveman.Position = new Vector2(3, 3);
-        slingshotCaveman.AttackClosest(defenders, towerPosition);
+        IEnemy netCaveman = enemyFactory.CreateEnemy("SlingshotCaveman");
+        netCaveman.Position = new Vector2(3, 3);
+        netCaveman.AttackClosest(defenders, towerPosition);
 
         IEnemy shieldCaveman = enemyFactory.CreateEnemy("ShieldCaveman");
         shieldCaveman.Position = new Vector2(0, 1);
@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
         foreach (var defender in defenders)
         {
             defender.Defend(clubCaveman);
-            defender.Defend(slingshotCaveman);
+            defender.Defend(netCaveman);
             defender.Defend(shieldCaveman);
         }
 
