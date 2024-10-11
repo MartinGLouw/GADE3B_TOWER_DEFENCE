@@ -12,6 +12,7 @@ public class ShieldCaveman : Enemy
         AttRange = 120; 
     }
 
+    public int health = 250;
     public int damage = 20;
     public GameObject shieldProjectilePrefab;
     public float projectileSpeed = 15f;
@@ -36,12 +37,6 @@ public class ShieldCaveman : Enemy
 
     private void Update()
     {
-        if (healthSliderShield != null)
-        {
-            healthSliderShield.transform.position = Camera.main.WorldToScreenPoint(transform.position + Vector3.up);
-            healthSliderShield.value = Health; 
-        }
-        
         if (Health <= 0)
         {
             meatManager.meat += 50;
@@ -124,12 +119,12 @@ public class ShieldCaveman : Enemy
     {
         if (other.gameObject.CompareTag("DP"))
         {
-            if(Health > 0)
+            if(health > 0)
             {
-                Health -= _defenProjectile.damage;
-                healthSliderShield.value = Health;
+                health -= damage;
+                healthSliderShield.value = health;
             }
-            else if (Health == 0)
+            else if (health == 0)
             {
                
                 Destroy(gameObject);

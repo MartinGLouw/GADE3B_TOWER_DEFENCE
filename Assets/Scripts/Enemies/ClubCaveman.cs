@@ -20,7 +20,7 @@ public class ClubCaveman : Enemy
     public MeatManager meatManager;
     public Slider healthSlider;
     public override void Attack()
-    {
+    { 
         throw new NotImplementedException();
     }
     void Update()

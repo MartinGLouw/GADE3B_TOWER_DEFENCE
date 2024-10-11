@@ -34,7 +34,7 @@ public class NetCaveman : Enemy
 
         if (Health <= 0)
         {
-            // You can add additional behavior here when the NetCaveman dies
+            
         }
     }
 
@@ -58,24 +58,24 @@ public class NetCaveman : Enemy
 
     private IEnumerator DisableDefender(Defender defender, float duration)
     {
-        defender.enabled = false; // Disables the defender
+        defender.enabled = false; //Disables the defender
         yield return new WaitForSeconds(duration);
-        defender.enabled = true; // Enables the defender
+        defender.enabled = true; //Enables the defender
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("DP")) // Replace "DP" with your damage projectile tag if needed
+        if (other.CompareTag("DP")) 
         {
             if (Health > 0)
             {
-                Health -= DefenProjectile.damage; // Assuming EnemyProjectile has a damage property
+                Health -= DefenProjectile.damage; 
                 healthSliderNet.value = Health;
             }
 
             if (Health <= 0)
             {
-                Destroy(gameObject); // Handle destruction logic
+                Destroy(gameObject);
             }
         }
     }
