@@ -1,30 +1,35 @@
+using System.Collections;
 using UnityEngine;
 
-namespace NewEnemies
+public abstract class ProjectileNew : MonoBehaviour
 {
-    public abstract class ProjectileNew : MonoBehaviour
+    protected float Speed = 10f;
+    protected GameObject target;
+    public int Damage { get; set; }
+
+   
+    public virtual void Initialize(GameObject target, float speed, float damage = 0f)
     {
-        protected float Speed = 10f;
-
-        public abstract void Initialize(float damage);
-
-        protected virtual void OnTriggerEnter(Collider other)
+        this.target = target;
+        this.Speed = speed;
+        Damage = 10;
+        StartCoroutine(MoveToTarget());
+    }
+    
+    protected virtual IEnumerator MoveToTarget()
+    {
+        while (target != null)
         {
-            if (other.CompareTag("Defender"))
-            {
-                // Handle the interaction with the defender.
-            }
-            Destroy(gameObject);
+            Vector3 direction = (target.transform.position - transform.position).normalized;
+            transform.position += direction * Speed * Time.deltaTime;
+            yield return null;
         }
 
-        protected void MoveForward()
-        {
-            transform.Translate(Vector3.forward * Speed * Time.deltaTime);
-        }
+        Destroy(gameObject); 
+    }
 
-        private void Update()
-        {
-            MoveForward();
-        }
+    protected virtual void OnTriggerEnter(Collider other)
+    {
+        Destroy(gameObject); 
     }
 }

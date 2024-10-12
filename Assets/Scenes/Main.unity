@@ -564,8 +564,8 @@ MonoBehaviour:
   towerPosition: {x: 0, y: 0, z: 0}
   numberOfPaths: 3
   Tower: {fileID: 7281053106240544960, guid: 196f413078efb704e855a8cc8ec315e7, type: 3}
-  DefenderPrefab: {fileID: 5066958387573949621, guid: 171cf0ae5a3a303498f43576a2aabceb, type: 3}
-  RaptorPrefab: {fileID: 5066958387573949621, guid: 171cf0ae5a3a303498f43576a2aabceb, type: 3}
+  DefenderPrefab: {fileID: 5066958387573949621, guid: 0cbea5207c8ce9044bd3f75b4248d46c, type: 3}
+  RaptorPrefab: {fileID: 5066958387573949621, guid: 0cbea5207c8ce9044bd3f75b4248d46c, type: 3}
   StegoPrefab: {fileID: 312700385326121214, guid: 0e710fa8f3db0d14bb436e1aafd489e7, type: 3}
   TRexPrefab: {fileID: 6081860356511150135, guid: bfd6be8a259c4ac44a78d2fea39cf936, type: 3}
   gridColor: {r: 1, g: 1, b: 1, a: 1}
@@ -575,7 +575,7 @@ MonoBehaviour:
   trexButton: {fileID: 360777644}
   stegoButton: {fileID: 167557891}
   meatManager: {fileID: 1452212549}
-  raptorDefender: {fileID: 8516783258852473255, guid: 171cf0ae5a3a303498f43576a2aabceb, type: 3}
+  raptorDefenderNew: {fileID: -5441090708321582210, guid: 0cbea5207c8ce9044bd3f75b4248d46c, type: 3}
 --- !u!154 &324491512
 TerrainCollider:
   m_ObjectHideFlags: 0
@@ -1353,6 +1353,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &698142301 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4626807745008477841, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
+  m_PrefabInstance: {fileID: 8586651793300339883}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &698142303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698142301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ce8c29343bc71741a8ebd1e2a4e6735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meatManager: {fileID: 1452212549}
+  meatText: {fileID: 629647513}
+  towerHealthText: {fileID: 547188816}
+  tower: {fileID: 8764722775357377633, guid: 196f413078efb704e855a8cc8ec315e7, type: 3}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -3320,7 +3341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7845fb2360f7047429dc6647447d2e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyPrefab: {fileID: 4426775827656613681, guid: 09fb15f1a16fd6349a2e7093b47203b4, type: 3}
+  EnemyPrefab: {fileID: 4426775827656613681, guid: 0d663a15d8194ce498f07ee06f861197, type: 3}
   spawnInterval: 5
   terrainGenerator: {fileID: 324491511}
 --- !u!1 &1731453326
@@ -3680,10 +3701,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4626807745008477841, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4904756632069370134, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
       propertyPath: meatText
       value: 
       objectReference: {fileID: 629647513}
+    - target: {fileID: 4904756632069370134, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4904756632069370134, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
       propertyPath: meatManager
       value: 
@@ -3743,7 +3772,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4626807745008477841, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 698142303}
   m_SourcePrefab: {fileID: 100100000, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

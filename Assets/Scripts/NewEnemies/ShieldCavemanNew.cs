@@ -1,14 +1,15 @@
 using UnityEngine;
+using System.Collections;
 
-public class ClubCavemanNew : EnemyNew
+public class ShieldCavemanNew : EnemyNew
 {
-    public GameObject clubProjectilePrefab;
+    public GameObject shieldProjectilePrefab;
 
     private void Start()
     {
         Health = 120f;
-        Damage = 30f;
-        AttackCooldown = 2f;
+        Damage = 20f; 
+        AttackCooldown = 3f;
     }
 
     public override void Attack()
@@ -16,18 +17,18 @@ public class ClubCavemanNew : EnemyNew
         GameObject closestDefender = FindClosestDefender();
         if (closestDefender != null)
         {
-            LaunchProjectile(closestDefender);
+            LaunchShieldProjectile(closestDefender);
         }
     }
 
-    private void LaunchProjectile(GameObject target)
+    private void LaunchShieldProjectile(GameObject target)
     {
-        GameObject projectileInstance = Instantiate(clubProjectilePrefab, transform.position, Quaternion.identity);
-        ClubProjectileNew clubProjectile = projectileInstance.GetComponent<ClubProjectileNew>();
+        GameObject projectileInstance = Instantiate(shieldProjectilePrefab, transform.position, Quaternion.identity);
+        ShieldProjectileNew shieldProjectile = projectileInstance.GetComponent<ShieldProjectileNew>();
 
-        if (clubProjectile != null)
+        if (shieldProjectile != null)
         {
-            clubProjectile.Initialize(target, 10f, Damage);
+            shieldProjectile.Initialize(target, 10f, Damage); 
         }
     }
 

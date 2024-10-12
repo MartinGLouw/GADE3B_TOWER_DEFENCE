@@ -26,7 +26,7 @@ public class TerrainGenerator : MonoBehaviour
     public GameObject trexButton;
     public GameObject stegoButton;
     public MeatManager meatManager;
-    public RaptorDefender raptorDefender;
+    public RaptorDefenderNew raptorDefenderNew;
 
     void Start()
     {
@@ -142,15 +142,15 @@ public class TerrainGenerator : MonoBehaviour
         Vector2Int gridIndex = GetGridIndex(position);
        
 
-        if (meatManager.meat >= raptorDefender.meatCost)
+        if (meatManager.meat >= raptorDefenderNew.meatCost)
         {
             if (validDefenderLocations.Contains(gridIndex))
             {
-                Debug.Log("Defender Cost = " + raptorDefender.meatCost);
+                Debug.Log("Defender Cost = " + raptorDefenderNew.meatCost);
                 Vector3 gridPosition = GetGridPosition(gridIndex);
                 Instantiate(DefenderPrefab, gridPosition, Quaternion.identity);
                 validDefenderLocations.Remove(gridIndex);
-                meatManager.meat = (meatManager.meat - raptorDefender.meatCost);//Deduct the meat cost
+                meatManager.meat = (meatManager.meat - raptorDefenderNew.meatCost);//Deduct the meat cost
                 meatManager.UpdateMeatText();
                 Debug.Log($"Defender placed at Grid Index: {gridIndex} -> Position: {gridPosition}");
             }

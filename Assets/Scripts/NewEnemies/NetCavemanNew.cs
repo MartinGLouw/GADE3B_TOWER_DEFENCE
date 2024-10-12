@@ -1,14 +1,14 @@
 using UnityEngine;
 
-public class ClubCavemanNew : EnemyNew
+public class NetCavemanNew : EnemyNew
 {
-    public GameObject clubProjectilePrefab;
+    public GameObject netProjectilePrefab;
 
     private void Start()
     {
         Health = 120f;
-        Damage = 30f;
-        AttackCooldown = 2f;
+        Damage = 0f;
+        AttackCooldown = 15f;
     }
 
     public override void Attack()
@@ -16,18 +16,18 @@ public class ClubCavemanNew : EnemyNew
         GameObject closestDefender = FindClosestDefender();
         if (closestDefender != null)
         {
-            LaunchProjectile(closestDefender);
+            LaunchNetProjectile(closestDefender);
         }
     }
 
-    private void LaunchProjectile(GameObject target)
+    private void LaunchNetProjectile(GameObject target)
     {
-        GameObject projectileInstance = Instantiate(clubProjectilePrefab, transform.position, Quaternion.identity);
-        ClubProjectileNew clubProjectile = projectileInstance.GetComponent<ClubProjectileNew>();
+        GameObject projectileInstance = Instantiate(netProjectilePrefab, transform.position, Quaternion.identity);
+        NetProjectileNew netProjectile = projectileInstance.GetComponent<NetProjectileNew>();
 
-        if (clubProjectile != null)
+        if (netProjectile != null)
         {
-            clubProjectile.Initialize(target, 10f, Damage);
+            netProjectile.Initialize(target, 10f, 3f); 
         }
     }
 
