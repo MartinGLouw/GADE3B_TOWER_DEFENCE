@@ -3842,9 +3842,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7845fb2360f7047429dc6647447d2e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyPrefab: {fileID: 4426775827656613681, guid: 007928e3a42d9f94e9e569c9f00a2c59, type: 3}
-  spawnInterval: 5
   terrainGenerator: {fileID: 324491511}
+  enemyType1: {fileID: 4426775827656613681, guid: 007928e3a42d9f94e9e569c9f00a2c59, type: 3}
+  enemyType2: {fileID: 570700176219852323, guid: 96cd20883bd828a419e2b1ff627224a2, type: 3}
+  enemyType3: {fileID: 1810503314926798037, guid: 238c64a363371c34996fb5a436037aa2, type: 3}
+  waves:
+  - numEnemies: 2
+    spawnDelay: 5
+  - numEnemies: 3
+    spawnDelay: 5
+  - numEnemies: 1
+    spawnDelay: 5
+  - numEnemies: 3
+    spawnDelay: 5
+  - numEnemies: 3
+    spawnDelay: 5
+  - numEnemies: 3
+    spawnDelay: 5
 --- !u!1 &1709742767
 GameObject:
   m_ObjectHideFlags: 0
