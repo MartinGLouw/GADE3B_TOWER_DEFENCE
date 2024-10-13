@@ -30,6 +30,8 @@ public class TerrainGenerator : MonoBehaviour
     public RaptorDefender raptorDefender;
     private int selectedDefender = 1;
     
+    public RaptorDefenderNew raptorDefenderNew;
+
     void Start()
     {
         canvas.SetActive(false);

@@ -10,7 +10,7 @@ public class ClubCaveman : Enemy
     {
         //Health = 100;
         Damage = 30;
-        AttRange = 80;
+        AttRange = 120;
     }
     public int damage = 50;
     public int health = 100;
@@ -20,7 +20,7 @@ public class ClubCaveman : Enemy
     public MeatManager meatManager;
     public Slider healthSlider;
     public override void Attack()
-    {
+    { 
         throw new NotImplementedException();
     }
     void Update()

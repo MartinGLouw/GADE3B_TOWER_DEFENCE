@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class Enemy : MonoBehaviour, IEnemy
 {
     private MeatManager meatManager;
+    
     public int Damage { get; set; }
     public int Health { get; set; }
     public Vector2 Position { get; set; }

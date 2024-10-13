@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -10,38 +9,34 @@ public class ShieldCaveman : Enemy
     {
         Health = 250;  
         Damage = 20;   
-        AttRange = 60; 
+        AttRange = 120; 
     }
 
-    public int damage = 20;
     public int health = 250;
+    public int damage = 20;
     public GameObject shieldProjectilePrefab;
-    public float projectileSpeed = 8f;
+    public float projectileSpeed = 15f;
     public float attackCooldown = 3f;
     public MeatManager meatManager;
-    public Slider healthSlider;
-    public float explosionRadius = 5f; //AoE radius for shield throw
-
-    private void Start()
-    {
-        healthSlider.maxValue = health;
-        healthSlider.minValue = 0;
-        healthSlider.value = health;
-        StartCoroutine(ShieldThrowCoroutine());
-    }
+    public Slider healthSliderShield;
+    private EnemProjectile _enemProjectile;
+    private DefenProjectile _defenProjectile;
 
     public override void Attack()
     {
+        throw new System.NotImplementedException();
+    }
+
+    private void Start()
+    {
+        healthSliderShield.maxValue = Health;
+        healthSliderShield.minValue = 0;
+        healthSliderShield.value = Health;
+        StartCoroutine(ShieldThrowCoroutine());
     }
 
     private void Update()
     {
-        if (healthSlider != null)
-        {
-            healthSlider.transform.position = Camera.main.WorldToScreenPoint(transform.position + Vector3.up);
-            healthSlider.value = Health; 
-        }
-        
         if (Health <= 0)
         {
             meatManager.meat += 50;
@@ -94,21 +89,11 @@ public class ShieldCaveman : Enemy
         {
             Vector3 direction = (target.transform.position - transform.position).normalized;
             shieldRigidbody.velocity = direction * projectileSpeed;
-            StartCoroutine(ReturnShield(shieldProjectile, target));
         }
         else
         {
             Debug.LogError("Shield projectile prefab is missing a Rigidbody component!");
         }
-    }
-
-    private IEnumerator ReturnShield(GameObject shieldProjectile, GameObject target)
-    {
-        yield return new WaitForSeconds(0.5f); 
-        
-        HitDefender(target);
-        
-        Destroy(shieldProjectile);
     }
 
     public void HitDefender(GameObject defender)
@@ -117,7 +102,6 @@ public class ShieldCaveman : Enemy
 
         if (defenderScript != null)
         {
-        
             defenderScript.Health -= damage; 
             
             if (defenderScript.Health <= 0)
@@ -135,13 +119,14 @@ public class ShieldCaveman : Enemy
     {
         if (other.gameObject.CompareTag("DP"))
         {
-            if (health > 0)
+            if(health > 0)
             {
                 health -= damage;
-                healthSlider.value = health;
+                healthSliderShield.value = health;
             }
-            else if (health <= 0)
+            else if (health == 0)
             {
+               
                 Destroy(gameObject);
                 MeatIncrease();
             }

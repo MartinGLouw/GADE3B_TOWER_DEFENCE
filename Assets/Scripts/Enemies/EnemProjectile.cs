@@ -1,8 +1,10 @@
 using UnityEngine;
 
-public class EnemyProjectile : MonoBehaviour
+public class EnemProjectile : MonoBehaviour
 {
-    public float lifetime = 5f; 
+    public float lifetime = 5f;
+    public int damage = 30;
+    
 
     private void Start()
     {
