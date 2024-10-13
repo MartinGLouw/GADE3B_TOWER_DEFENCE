@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     public struct DefenderSpawnInfo
     {
         public DefenderFactoryNew.DefenderType type;
-        public Vector3 position;
+        public Vector2 position;
     }
 
     public DefenderSpawnInfo[] defenderTypes; 

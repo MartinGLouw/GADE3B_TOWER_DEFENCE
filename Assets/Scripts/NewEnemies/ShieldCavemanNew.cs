@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class ShieldCavemanNew : EnemyNew
 {
@@ -10,18 +11,12 @@ public class ShieldCavemanNew : EnemyNew
         Health = 120f;
         Damage = 20f; 
         AttackCooldown = 3f;
+        StartCoroutine(AttackCoroutine());
     }
 
-    public override void Attack()
-    {
-        GameObject closestDefender = FindClosestDefender();
-        if (closestDefender != null)
-        {
-            LaunchShieldProjectile(closestDefender);
-        }
-    }
+  
 
-    private void LaunchShieldProjectile(GameObject target)
+    protected override void LaunchProjectile(GameObject target)
     {
         GameObject projectileInstance = Instantiate(shieldProjectilePrefab, transform.position, Quaternion.identity);
         ShieldProjectileNew shieldProjectile = projectileInstance.GetComponent<ShieldProjectileNew>();
@@ -32,22 +27,37 @@ public class ShieldCavemanNew : EnemyNew
         }
     }
 
-    private GameObject FindClosestDefender()
+    protected override IEnumerator AttackCoroutine()
     {
-        GameObject[] defenders = GameObject.FindGameObjectsWithTag("Defender");
-        GameObject closestDefender = null;
-        float closestDistance = Mathf.Infinity;
-
-        foreach (GameObject defender in defenders)
+        Debug.Log($"{this.name} started Attacking.");
+        while (true)
         {
-            float distance = Vector3.Distance(transform.position, defender.transform.position);
-            if (distance < closestDistance)
-            {
-                closestDistance = distance;
-                closestDefender = defender;
-            }
-        }
+            GameObject[] defenders = GameObject.FindGameObjectsWithTag("Defender");
+            Debug.Log($"defender detected: {defenders.Length}");
 
-        return closestDefender;
+            if (defenders.Length > 0)
+            {
+                GameObject[] defendersInRange = defenders
+                    .Where(enemy => Vector3.Distance(transform.position, enemy.transform.position) <= AttackRange)
+                    .ToArray();
+                Debug.Log($"defender in range: {defendersInRange.Length}");
+
+                if (defendersInRange.Length > 0)
+                {
+                    GameObject closesDefenderInRange = defendersInRange
+                        .OrderBy(enemy => Vector3.Distance(transform.position, enemy.transform.position))
+                        .FirstOrDefault();
+
+                    if (closesDefenderInRange != null && canShoot)
+                    {
+                        Debug.Log($"{this.name} found defender {closesDefenderInRange.name} in range.");
+                        LaunchProjectile(closesDefenderInRange);
+                        yield return new WaitForSeconds(AttackCooldown); 
+                    }
+                }
+            }
+
+            yield return null; 
+        }
     }
 }

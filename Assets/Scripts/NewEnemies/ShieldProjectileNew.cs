@@ -9,31 +9,34 @@ public class ShieldProjectileNew : ProjectileNew
     public override void Initialize(GameObject target, float speed, float damage)
     {
         base.Initialize(target, speed);
-        this.damage = 20;  
+        this.damage = 20;
     }
 
-    protected override void OnTriggerEnter(Collider other)
+    protected override void DealDamage()
     {
-        if (other.CompareTag("Defender") && !hasHitFirstTime)
+        if (!hasHitFirstTime)
         {
             hasHitFirstTime = true;
-            DefenderNew defender = other.GetComponent<DefenderNew>();
+            DefenderNew defender = target.GetComponent<DefenderNew>();
             if (defender != null)
             {
-                defender.TakeDamage(damage); 
-                StartCoroutine(SecondHit(defender)); 
+                defender.TakeDamage(damage);
+                StartCoroutine(SecondHit(defender));
+            }
+            else
+            {
+                Debug.LogError("Target does not have an EnemyNew component!");
             }
         }
-        base.OnTriggerEnter(other);  
     }
 
     private IEnumerator SecondHit(DefenderNew defender)
     {
-        yield return new WaitForSeconds(1f);  
+        yield return new WaitForSeconds(1f);
         if (defender != null)
         {
-            defender.TakeDamage(damage); 
+            defender.TakeDamage(damage);
         }
-        Destroy(gameObject); 
+        Destroy(gameObject);
     }
 }

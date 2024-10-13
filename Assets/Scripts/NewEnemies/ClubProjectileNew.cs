@@ -10,16 +10,21 @@ public class ClubProjectileNew : ProjectileNew
         this.damage = 30; 
     }
 
-    protected override void OnTriggerEnter(Collider other)
+   
+    protected override void DealDamage()
     {
-        if (other.CompareTag("Defender")) 
+        
+        DefenderNew defender = target.GetComponent<DefenderNew>();
+        if (defender != null)
         {
-            DefenderNew defender = other.GetComponent<DefenderNew>();
-            if (defender != null)
-            {
-                defender.TakeDamage(damage); 
-            }
+            defender.TakeDamage(damage);
         }
-        base.OnTriggerEnter(other); 
+        else
+        {
+            Debug.LogError("Target does not have an EnemyNew component!");
+        }
     }
+    
+
+   
 }

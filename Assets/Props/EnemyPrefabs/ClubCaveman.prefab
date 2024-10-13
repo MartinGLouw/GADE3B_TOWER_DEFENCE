@@ -323,10 +323,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 50
   health: 100
-  projectilePrefab: {fileID: 5796778622911980248, guid: 566f6f31bb7c6a04b8f62c644bfa7db0, type: 3}
+  projectilePrefab: {fileID: 5796778622911980248, guid: 93b1e7a651c08cd4d8c72282914ccfba, type: 3}
   projectileSpeed: 30
   attackCooldown: 5
-  meatManager: {fileID: 0}
   healthSlider: {fileID: 8884531749708924494}
 --- !u!1 &7175309533120665074
 GameObject:

@@ -322,7 +322,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef9a2755e651124b8e65b72d89f4573, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clubProjectilePrefab: {fileID: 5796778622911980248, guid: f01ac609ae2476d428e87018be687450, type: 3}
+  canShoot: 1
+  clubProjectilePrefab: {fileID: 5796778622911980248, guid: e3285947ae783f34aad963bc87fdc823, type: 3}
 --- !u!54 &-7096146408591832978
 Rigidbody:
   m_ObjectHideFlags: 0

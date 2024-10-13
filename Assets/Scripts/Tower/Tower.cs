@@ -30,6 +30,9 @@ public class Tower : MonoBehaviour
 
     void Start()
     {
+        Health = 600;
+        Damage = 30;
+        AttRange = 100;
         dead = false;
         endScreenCanvas.SetActive(false);
         UpdateTowerHealthText();

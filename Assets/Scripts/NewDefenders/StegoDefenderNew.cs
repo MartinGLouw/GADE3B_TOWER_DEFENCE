@@ -26,26 +26,34 @@ public class StegoDefenderNew : DefenderNew
 
     public override IEnumerator DefendCoroutine()
     {
+        Debug.Log($"{this.name} started defending.");
         while (true)
         {
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            Debug.Log($"Enemies detected: {enemies.Length}");
 
             if (enemies.Length > 0)
             {
                 GameObject[] enemiesInRange = enemies
                     .Where(enemy => Vector3.Distance(transform.position, enemy.transform.position) <= AttackRange)
                     .ToArray();
+                Debug.Log($"Enemies in range: {enemiesInRange.Length}");
 
                 if (enemiesInRange.Length > 0)
                 {
-                    for (int i = 0; i < projectilesCount; i++)
+                    GameObject closestEnemyInRange = enemiesInRange
+                        .OrderBy(enemy => Vector3.Distance(transform.position, enemy.transform.position))
+                        .FirstOrDefault();
+
+                    if (closestEnemyInRange != null && canShoot)
                     {
-                        GameObject closestEnemyInRange = enemiesInRange[0]; 
+                        Debug.Log($"{this.name} found enemy {closestEnemyInRange.name} in range.");
                         LaunchProjectile(closestEnemyInRange);
+                        yield return new WaitForSeconds(attackCooldown); 
                     }
-                    yield return new WaitForSeconds(attackCooldown); 
                 }
             }
+
             yield return null; 
         }
     }

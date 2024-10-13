@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public abstract class EnemyNew : MonoBehaviour
@@ -8,8 +9,17 @@ public abstract class EnemyNew : MonoBehaviour
     public float AttackCooldown { get; protected set; }
 
     protected float nextAttackTime;
+    public bool canShoot = true;
+    public virtual void Attack()
+    {
+        StartCoroutine(AttackCoroutine());
+    }
 
-    public abstract void Attack();
+    protected virtual IEnumerator AttackCoroutine()
+    {
+        // Projectile spawning logic here
+        yield return null;
+    }
 
     private void Update()
     {
@@ -33,4 +43,5 @@ public abstract class EnemyNew : MonoBehaviour
     {
         Destroy(gameObject);
     }
+    protected abstract void LaunchProjectile(GameObject target); 
 }

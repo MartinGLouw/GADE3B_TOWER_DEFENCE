@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public class NetCavemanNew : EnemyNew
@@ -9,18 +11,45 @@ public class NetCavemanNew : EnemyNew
         Health = 120f;
         Damage = 0f;
         AttackCooldown = 15f;
+        StartCoroutine(AttackCoroutine());
     }
 
-    public override void Attack()
+    protected override IEnumerator AttackCoroutine()
     {
-        GameObject closestDefender = FindClosestDefender();
-        if (closestDefender != null)
+        Debug.Log($"{this.name} started Attacking.");
+        while (true)
         {
-            LaunchNetProjectile(closestDefender);
+            GameObject[] defenders = GameObject.FindGameObjectsWithTag("Defender");
+            Debug.Log($"defender detected: {defenders.Length}");
+
+            if (defenders.Length > 0)
+            {
+                GameObject[] defendersInRange = defenders
+                    .Where(enemy => Vector3.Distance(transform.position, enemy.transform.position) <= AttackRange)
+                    .ToArray();
+                Debug.Log($"defender in range: {defendersInRange.Length}");
+
+                if (defendersInRange.Length > 0)
+                {
+                    GameObject closesDefenderInRange = defendersInRange
+                        .OrderBy(enemy => Vector3.Distance(transform.position, enemy.transform.position))
+                        .FirstOrDefault();
+
+                    if (closesDefenderInRange != null && canShoot)
+                    {
+                        Debug.Log($"{this.name} found defender {closesDefenderInRange.name} in range.");
+                        LaunchProjectile(closesDefenderInRange);
+                        yield return new WaitForSeconds(AttackCooldown); 
+                    }
+                }
+            }
+
+            yield return null; 
         }
     }
+    
 
-    private void LaunchNetProjectile(GameObject target)
+    protected override void LaunchProjectile(GameObject target)
     {
         GameObject projectileInstance = Instantiate(netProjectilePrefab, transform.position, Quaternion.identity);
         NetProjectileNew netProjectile = projectileInstance.GetComponent<NetProjectileNew>();
@@ -30,23 +59,5 @@ public class NetCavemanNew : EnemyNew
             netProjectile.Initialize(target, 10f, 3f); 
         }
     }
-
-    private GameObject FindClosestDefender()
-    {
-        GameObject[] defenders = GameObject.FindGameObjectsWithTag("Defender");
-        GameObject closestDefender = null;
-        float closestDistance = Mathf.Infinity;
-
-        foreach (GameObject defender in defenders)
-        {
-            float distance = Vector3.Distance(transform.position, defender.transform.position);
-            if (distance < closestDistance)
-            {
-                closestDistance = distance;
-                closestDefender = defender;
-            }
-        }
-
-        return closestDefender;
-    }
+    
 }
