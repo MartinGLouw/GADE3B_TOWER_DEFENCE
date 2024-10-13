@@ -9,7 +9,7 @@ public class StegoDefenderNew : DefenderNew
     public int damage = 10; 
     public int projectilesCount = 3; 
     public float attackCooldown = 1.5f; 
-    public int meatCost = 40;
+    public int meatCost = 30;
 
     private void Start()
     {

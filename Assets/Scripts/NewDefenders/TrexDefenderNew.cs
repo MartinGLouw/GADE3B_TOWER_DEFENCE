@@ -7,12 +7,15 @@ public class TrexDefenderNew : DefenderNew
     public float buffDuration = 5f; 
     private bool isBuffed = false;
     public Vector2 Position { get; set; }
+    public int meatCost = 50;
+    
 
     private void Start()
     {
         Health = 100; 
         Damage = 0; 
-        AttackRange = 120f; 
+        AttackRange = 120f;
+        MeatCost = meatCost;
         StartCoroutine(BuffDefendersCoroutine());
     }
 
