@@ -39,14 +39,14 @@ public class ShieldCaveman : Enemy
     {
         if (Health <= 0)
         {
-            meatManager.meat += 50;
+            MeatManager.meat += 50;
             meatManager.UpdateMeatText();
         }
     }
 
     private void MeatIncrease()
     {
-        meatManager.meat += 40; 
+        MeatManager.meat += 40; 
     }
 
     private IEnumerator ShieldThrowCoroutine()

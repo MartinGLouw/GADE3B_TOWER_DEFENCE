@@ -20,7 +20,7 @@ public class Tower : MonoBehaviour
     public float projectileSpeed = 10f;
     public int Health = 600;
     public int Damage = 30;
-    public bool dead;
+    public bool dead = false;
     public GameManager gameManager;
     public GameObject endScreenCanvas;
     

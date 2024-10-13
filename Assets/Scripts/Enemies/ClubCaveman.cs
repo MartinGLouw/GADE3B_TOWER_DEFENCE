@@ -17,8 +17,9 @@ public class ClubCaveman : Enemy
     public GameObject projectilePrefab; 
     public float projectileSpeed = 10f;
     public float attackCooldown = 2f;
-    public MeatManager meatManager;
+   
     public Slider healthSlider;
+    private MeatManager meatManager;
     public override void Attack()
     { 
         throw new NotImplementedException();
@@ -27,7 +28,7 @@ public class ClubCaveman : Enemy
     {
         if (Health <= 0)
         {
-            meatManager.meat += 30;
+            MeatManager.meat += 30;
             meatManager.UpdateMeatText();
         }
     }
@@ -42,7 +43,7 @@ public class ClubCaveman : Enemy
 
     private void MeatIncrease()
     {
-        meatManager.meat = meatManager.meat + 20;
+        MeatManager.meat = MeatManager.meat + 20;
     }
 
     private IEnumerator AttackCoroutine()

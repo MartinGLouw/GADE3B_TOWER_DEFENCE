@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TrexDefenderNew : DefenderNew
 {
@@ -8,6 +9,7 @@ public class TrexDefenderNew : DefenderNew
     private bool isBuffed = false;
     public Vector2 Position { get; set; }
     public int meatCost = 50;
+    public Slider healthSlider;
     
 
     private void Start()
@@ -16,7 +18,11 @@ public class TrexDefenderNew : DefenderNew
         Damage = 0; 
         AttackRange = 120f;
         MeatCost = meatCost;
+        healthSlider.maxValue = Health; 
+        healthSlider.minValue = 0; 
+        healthSlider.value = Health;
         StartCoroutine(BuffDefendersCoroutine());
+        
     }
 
     protected override void LaunchProjectile(GameObject target)

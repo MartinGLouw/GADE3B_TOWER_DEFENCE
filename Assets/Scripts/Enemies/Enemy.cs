@@ -55,7 +55,7 @@ public abstract class Enemy : MonoBehaviour, IEnemy
     {
         if (Health <= 0)
         {
-            meatManager.meat += 30;
+            MeatManager.meat += 30;
             Die();
         }
     }

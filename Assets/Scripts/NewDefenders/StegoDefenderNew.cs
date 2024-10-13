@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StegoDefenderNew : DefenderNew
 {
@@ -10,12 +11,16 @@ public class StegoDefenderNew : DefenderNew
     public int projectilesCount = 3; 
     public float attackCooldown = 1.5f; 
     public int meatCost = 30;
+    public Slider healthSlider;
 
     private void Start()
     {
         Health = 80; 
         Damage = damage; 
         MeatCost = meatCost; 
+        healthSlider.maxValue = Health; 
+        healthSlider.minValue = 0; 
+        healthSlider.value = Health;
         StartCoroutine(DefendCoroutine());
     }
 

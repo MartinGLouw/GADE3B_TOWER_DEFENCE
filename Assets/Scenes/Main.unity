@@ -433,8 +433,8 @@ MonoBehaviour:
   Tower: {fileID: 7281053106240544960, guid: 196f413078efb704e855a8cc8ec315e7, type: 3}
   DefenderPrefab: {fileID: 5066958387573949621, guid: 0cbea5207c8ce9044bd3f75b4248d46c, type: 3}
   RaptorPrefab: {fileID: 5066958387573949621, guid: 0cbea5207c8ce9044bd3f75b4248d46c, type: 3}
-  StegoPrefab: {fileID: 312700385326121214, guid: 0e710fa8f3db0d14bb436e1aafd489e7, type: 3}
-  TRexPrefab: {fileID: 6081860356511150135, guid: bfd6be8a259c4ac44a78d2fea39cf936, type: 3}
+  StegoPrefab: {fileID: 5066958387573949621, guid: bf163c54c7a5ca545acc82889b188a38, type: 3}
+  TRexPrefab: {fileID: 5066958387573949621, guid: aa4c1dd7c685c15498d501265dab10b4, type: 3}
   gridColor: {r: 1, g: 1, b: 1, a: 1}
   pathColor: {r: 1, g: 0, b: 0, a: 1}
   canvas: {fileID: 387298762}
@@ -442,8 +442,9 @@ MonoBehaviour:
   trexButton: {fileID: 1215175182}
   stegoButton: {fileID: 513562053}
   meatManager: {fileID: 1452212549}
-  raptorDefender: {fileID: 0}
   raptorDefenderNew: {fileID: -5441090708321582210, guid: 0cbea5207c8ce9044bd3f75b4248d46c, type: 3}
+  stegoDefenderNew: {fileID: -5942481129275936101, guid: bf163c54c7a5ca545acc82889b188a38, type: 3}
+  trexDefenderNew: {fileID: 4728513111531848209, guid: aa4c1dd7c685c15498d501265dab10b4, type: 3}
 --- !u!154 &324491512
 TerrainCollider:
   m_ObjectHideFlags: 0
@@ -462,7 +463,7 @@ TerrainCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_TerrainData: {fileID: 15600000, guid: 5842d18736c86194a9d451283a4d88d1, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: 6b2b673fe21a09141a66c34fa7df2158, type: 2}
   m_EnableTreeColliders: 1
 --- !u!218 &324491513
 Terrain:
@@ -473,7 +474,7 @@ Terrain:
   m_GameObject: {fileID: 324491510}
   m_Enabled: 1
   serializedVersion: 6
-  m_TerrainData: {fileID: 15600000, guid: 5842d18736c86194a9d451283a4d88d1, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: 6b2b673fe21a09141a66c34fa7df2158, type: 2}
   m_TreeDistance: 5000
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
@@ -2003,7 +2004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -3070,7 +3071,8 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 405668965}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4904756632069370134, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
     m_RemovedGameObjects:
     - {fileID: 4831665860595591267, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
     m_AddedGameObjects: []

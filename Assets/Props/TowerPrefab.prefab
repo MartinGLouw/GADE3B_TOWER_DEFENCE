@@ -128,5 +128,5 @@ MonoBehaviour:
   Health: 20
   Damage: 30
   dead: 0
-  gameManager: {fileID: 4904756632069370134, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
+  gameManager: {fileID: 0}
   endScreenCanvas: {fileID: 350493140422379243, guid: 6f3db4ca452988340bfe24c9890830d0, type: 3}
