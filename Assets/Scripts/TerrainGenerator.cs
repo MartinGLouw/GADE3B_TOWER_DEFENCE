@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class TerrainGenerator : MonoBehaviour
 {
@@ -22,12 +23,13 @@ public class TerrainGenerator : MonoBehaviour
     private float gridSpacing;
     private LineRenderer[,] gridLines;
     public GameObject canvas;
-    public GameObject raptorButton;
-    public GameObject trexButton;
-    public GameObject stegoButton;
+    public Button raptorButton;
+    public Button trexButton;
+    public Button stegoButton;
     public MeatManager meatManager;
     public RaptorDefender raptorDefender;
-
+    private int selectedDefender = 1;
+    
     void Start()
     {
         canvas.SetActive(false);
@@ -35,7 +37,9 @@ public class TerrainGenerator : MonoBehaviour
         {
             seed = Random.Range(0, 100000);
         }
-
+        raptorButton.onClick.AddListener(() => SelectDefender(1));
+        stegoButton.onClick.AddListener(() => SelectDefender(2));
+        trexButton.onClick.AddListener(() => SelectDefender(3));
         gridSpacing = width / gridSize;
         validDefenderLocations = new HashSet<Vector2Int>();
         paths = new List<List<Vector3>>();
@@ -48,6 +52,33 @@ public class TerrainGenerator : MonoBehaviour
         DrawGrid();
 
         
+    }
+    public void SelectDefender(int defenderType)
+    {
+        selectedDefender = defenderType;
+
+        // Optional: Add visual feedback to the buttons (e.g., highlight the selected button)
+        switch (selectedDefender)
+        {
+            case 1:
+                stegoButton.image.color = Color.gray; // Deselect
+                trexButton.image.color = Color.gray; // Deselect
+                raptorButton.image.color = Color.green; // Select TRex
+                Debug.Log("Selected Raptor");
+                break;
+            case 2:
+                raptorButton.image.color = Color.gray; // Deselect
+                trexButton.image.color = Color.gray; // Deselect
+                stegoButton.image.color = Color.green; // Select TRex
+                Debug.Log("Selected Stego");
+                break;
+            case 3:
+                raptorButton.image.color = Color.gray; // Deselect
+                stegoButton.image.color = Color.gray; // Deselect
+                trexButton.image.color = Color.green; // Select TRex
+                Debug.Log("Selected TRex");
+                break;
+        }
     }
 
     void PopulateValidDefenderLocations()
@@ -91,66 +122,38 @@ public class TerrainGenerator : MonoBehaviour
         return false;
     }
 
-    // public void SpawnRaptor(Vector3 position)
-    // {
-    //     Vector2Int gridIndex = GetGridIndex(position);
-    //     if (validDefenderLocations.Contains(gridIndex))
-    //     {
-    //         Vector3 gridPosition = GetGridPosition(gridIndex);
-    //         Instantiate(RaptorPrefab, gridPosition, Quaternion.identity);
-    //         validDefenderLocations.Remove(gridIndex);
-    //         Debug.Log($"Defender placed at Grid Index: {gridIndex} -> Position: {gridPosition}");
-    //     }
-    //     else
-    //     {
-    //         Debug.Log($"Failed to place defender at Grid Index: {gridIndex}. The location is either on a path or already occupied.");
-    //     }
-    // }
-    // public void SpawnTrex(Vector3 position)
-    // {
-    //     Vector2Int gridIndex = GetGridIndex(position);
-    //     if (validDefenderLocations.Contains(gridIndex))
-    //     {
-    //         Vector3 gridPosition = GetGridPosition(gridIndex);
-    //         Instantiate(TRexPrefab, gridPosition, Quaternion.identity);
-    //         validDefenderLocations.Remove(gridIndex);
-    //         Debug.Log($"Defender placed at Grid Index: {gridIndex} -> Position: {gridPosition}");
-    //     }
-    //     else
-    //     {
-    //         Debug.Log($"Failed to place defender at Grid Index: {gridIndex}. The location is either on a path or already occupied.");
-    //     }
-    // }
-    // public void SpawnStego(Vector3 position)
-    // {
-    //     Vector2Int gridIndex = GetGridIndex(position);
-    //     if (validDefenderLocations.Contains(gridIndex))
-    //     {
-    //         Vector3 gridPosition = GetGridPosition(gridIndex);
-    //         Instantiate(StegoPrefab, gridPosition, Quaternion.identity);
-    //         validDefenderLocations.Remove(gridIndex);
-    //         Debug.Log($"Defender placed at Grid Index: {gridIndex} -> Position: {gridPosition}");
-    //     }
-    //     else
-    //     {
-    //         Debug.Log($"Failed to place defender at Grid Index: {gridIndex}. The location is either on a path or already occupied.");
-    //     }
-    // }
-
     void PlaceDefender(Vector3 position)
     {
         Vector2Int gridIndex = GetGridIndex(position);
-       
 
-        if (meatManager.meat >= raptorDefender.meatCost)
+        // Determine defender prefab and cost based on selection
+        GameObject defenderPrefab = null;
+        int meatCost = 0;
+        switch (selectedDefender)
+        {
+            case 1:
+                defenderPrefab = RaptorPrefab;
+                meatCost = raptorDefender.meatCost;
+                break;
+            case 2:
+                defenderPrefab = StegoPrefab;
+                meatCost = raptorDefender.meatCost;
+                break;
+            case 3:
+                defenderPrefab = TRexPrefab;
+                meatCost = raptorDefender.meatCost;
+                break;
+        }
+
+        if (meatManager.meat >= meatCost)
         {
             if (validDefenderLocations.Contains(gridIndex))
             {
-                Debug.Log("Defender Cost = " + raptorDefender.meatCost);
+                Debug.Log($"Defender Cost = {meatCost}");
                 Vector3 gridPosition = GetGridPosition(gridIndex);
-                Instantiate(DefenderPrefab, gridPosition, Quaternion.identity);
+                Instantiate(defenderPrefab, gridPosition, Quaternion.identity);
                 validDefenderLocations.Remove(gridIndex);
-                meatManager.meat = (meatManager.meat - raptorDefender.meatCost);//Deduct the meat cost
+                meatManager.meat -= meatCost; // Deduct the meat cost
                 meatManager.UpdateMeatText();
                 Debug.Log($"Defender placed at Grid Index: {gridIndex} -> Position: {gridPosition}");
             }
@@ -175,14 +178,29 @@ public class TerrainGenerator : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 Vector3 hitPoint = hit.point;
-                hitPoint.y = Terrain.activeTerrain.SampleHeight(hitPoint);
+                hitPoint.y  
+                    = Terrain.activeTerrain.SampleHeight(hitPoint);
 
                 Debug.Log($"Mouse clicked at {hitPoint}");
-                //Call UI
-                
                 PlaceDefender(hitPoint);
-                
             }
+        }
+
+        // Defender selection
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            selectedDefender = 1;
+            Debug.Log("Selected Raptor");
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            selectedDefender = 2;
+            Debug.Log("Selected Stego");
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            selectedDefender = 3;
+            Debug.Log("Selected TRex");
         }
     }
 
