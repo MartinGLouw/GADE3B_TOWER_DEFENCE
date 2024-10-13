@@ -139,6 +139,7 @@ public class Tower : MonoBehaviour
     {
         if (Health == 0)
         {
+            Debug.Log("DEadddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
             dead = true;
             endScreenCanvas.SetActive(true);
           

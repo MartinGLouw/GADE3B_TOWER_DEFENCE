@@ -135,15 +135,15 @@ public class TerrainGenerator : MonoBehaviour
         {
             case 1:
                 defenderPrefab = RaptorPrefab;
-                meatCost = raptorDefender.meatCost;
+                meatCost = raptorDefenderNew.meatCost;
                 break;
             case 2:
                 defenderPrefab = StegoPrefab;
-                meatCost = raptorDefender.meatCost;
+                meatCost = raptorDefenderNew.meatCost;
                 break;
             case 3:
                 defenderPrefab = TRexPrefab;
-                meatCost = raptorDefender.meatCost;
+                meatCost = raptorDefenderNew.meatCost;
                 break;
         }
 
