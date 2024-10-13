@@ -5,8 +5,8 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     
-    public TextMeshProUGUI towerHealthText;
-    public Tower tower;
+    
+    public static Tower tower;
     public EnemyFactoryNew enemyFactoryNew; 
     private List<DefenderNew> defenders = new List<DefenderNew>();
 
@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        UpdateTowerHealthText();
+       
         SpawnDefenders(); 
     }
 
@@ -43,13 +43,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        towerHealthText.text = $"Tower Health: {tower.Health}";
-    }
+ 
 
-    public void UpdateTowerHealthText()
-    {
-        towerHealthText.text = $"Tower Health: {tower.Health}";
-    }
+    
 }

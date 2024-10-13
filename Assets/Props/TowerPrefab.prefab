@@ -118,15 +118,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d889cf571a24d79488dad7126019bdfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 5
   attackDamage: 50
   attackCooldown: 5
-  towerHealth: 500
   AttRange: 100
   projectilePrefab: {fileID: 5796778622911980248, guid: 93b1e7a651c08cd4d8c72282914ccfba, type: 3}
   projectileSpeed: 10
   Health: 20
   Damage: 30
   dead: 0
-  gameManager: {fileID: 0}
   endScreenCanvas: {fileID: 350493140422379243, guid: 6f3db4ca452988340bfe24c9890830d0, type: 3}
+  towerHealthText: 

@@ -72,7 +72,7 @@ public abstract class Enemy : MonoBehaviour, IEnemy
     {
         if (tower != null)
         {
-            tower.towerHealth -= Damage; 
+            tower.Health -= Damage; 
         }
         
     }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class EnemyNew : MonoBehaviour
 {
-    public float Health { get; protected set; }
+    public float Health { get; set; }
     public float Damage { get; protected set; }
     public float AttackRange { get; protected set; } = 120f;
     public float AttackCooldown { get; protected set; }

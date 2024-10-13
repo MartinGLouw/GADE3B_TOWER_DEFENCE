@@ -8,30 +8,33 @@ using Unity.VisualScripting;
 
 public class Tower : MonoBehaviour
 {
-    public float attackRange = 5.0f;
     public int attackDamage = 50;
     public float attackCooldown = 5f;
     private float lastAttackTime;
     private SphereCollider sphereCollider;
-    public int towerHealth = 500;
     public int AttRange = 100;
-    private List<IEnemy> enemiesInRange = new List<IEnemy>();
+    private List<EnemyNew> enemiesInRange = new List<EnemyNew>();
     public GameObject projectilePrefab;
     public float projectileSpeed = 10f;
     public int Health = 600;
     public int Damage = 30;
     public bool dead = false;
-    public GameManager gameManager;
     public GameObject endScreenCanvas;
+    public  TextMeshProUGUI TowerHealthText;
+
+     
+     
+     
     
-   
-    
+
+
     void Start()
     {
         dead = false;
-        gameManager = FindObjectOfType<GameManager>();
         endScreenCanvas.SetActive(false);
+        UpdateTowerHealthText();
         StartCoroutine(TowerDefense());
+        
         
     }
 
@@ -86,7 +89,7 @@ public class Tower : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        IEnemy enemy = other.GetComponent<IEnemy>();
+        EnemyNew enemy = other.GetComponent<EnemyNew>();
         if (enemy != null)
         {
             enemiesInRange.Add(enemy);
@@ -96,7 +99,7 @@ public class Tower : MonoBehaviour
             if(Health > 0)
             {
                 Health -= Damage;
-                gameManager.UpdateTowerHealthText();
+                UpdateTowerHealthText();
             }
             else
             {
@@ -110,7 +113,7 @@ public class Tower : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        IEnemy enemy = other.GetComponent<IEnemy>();
+        EnemyNew enemy = other.GetComponent<EnemyNew>();
         if (enemy != null)
         {
             enemiesInRange.Remove(enemy);
@@ -119,7 +122,7 @@ public class Tower : MonoBehaviour
 
     void Update()
     {
-        gameManager.UpdateTowerHealthText();
+        UpdateTowerHealthText();
         CheckDeath();
         if (enemiesInRange.Count > 0 && Time.time > lastAttackTime + attackCooldown)
         {
@@ -129,7 +132,7 @@ public class Tower : MonoBehaviour
         
     }
 
-    void Attack(IEnemy enemy)
+    void Attack(EnemyNew enemy)
     {
         Debug.Log("Tower attacks!");
         enemy.Health -= attackDamage;
@@ -145,7 +148,10 @@ public class Tower : MonoBehaviour
           
         }
     }
-    
+    public void UpdateTowerHealthText()
+    {
+        TowerHealthText.SetText(Health.ToString());
+    }
    
     
 }
