@@ -29,7 +29,7 @@ public class TerrainGenerator : MonoBehaviour
     public MeatManager meatManager;
     public RaptorDefender raptorDefender;
     private int selectedDefender = 1;
-    
+    private static HashSet<Vector2Int> availableDefenderLocationsStatic = new HashSet<Vector2Int>(); 
     public RaptorDefenderNew raptorDefenderNew;
 
     void Start()
@@ -53,7 +53,14 @@ public class TerrainGenerator : MonoBehaviour
         PopulateValidDefenderLocations();
         DrawGrid();
 
-        
+        // Initialize the static HashSet if it's empty (only on the first run)
+        if (availableDefenderLocationsStatic.Count == 0) 
+        {
+            availableDefenderLocationsStatic = new HashSet<Vector2Int>(validDefenderLocations);
+        }
+
+        // Use the static HashSet for placing defenders
+        validDefenderLocations = availableDefenderLocationsStatic; 
     }
     public void SelectDefender(int defenderType)
     {
@@ -139,11 +146,11 @@ public class TerrainGenerator : MonoBehaviour
                 break;
             case 2:
                 defenderPrefab = StegoPrefab;
-                meatCost = raptorDefenderNew.meatCost;
+                meatCost = raptorDefenderNew.meatCost; // Assuming same cost as Raptor
                 break;
             case 3:
                 defenderPrefab = TRexPrefab;
-                meatCost = raptorDefenderNew.meatCost;
+                meatCost = raptorDefenderNew.meatCost; // Assuming same cost as Raptor
                 break;
         }
 
@@ -154,7 +161,11 @@ public class TerrainGenerator : MonoBehaviour
                 Debug.Log($"Defender Cost = {meatCost}");
                 Vector3 gridPosition = GetGridPosition(gridIndex);
                 Instantiate(defenderPrefab, gridPosition, Quaternion.identity);
+
+                // Remove the location from BOTH HashSets
+                availableDefenderLocationsStatic.Remove(gridIndex); 
                 validDefenderLocations.Remove(gridIndex);
+
                 meatManager.meat -= meatCost; // Deduct the meat cost
                 meatManager.UpdateMeatText();
                 Debug.Log($"Defender placed at Grid Index: {gridIndex} -> Position: {gridPosition}");

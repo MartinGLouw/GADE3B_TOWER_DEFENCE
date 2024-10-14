@@ -9,7 +9,7 @@ public class RaptorDefenderNew : DefenderNew
     public float attackCooldown = 2f; 
     public int meatCost = 20;
     public int damage = 30;
-
+    public int Health;
     private void Start()
     {
         Health = 100;
