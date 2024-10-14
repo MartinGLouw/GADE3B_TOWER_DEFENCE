@@ -29,11 +29,11 @@ public class EnemySpawner : MonoBehaviour
             Debug.LogError("EnemySpawner needs a reference to the TerrainGenerator!");
         }
 
-        // Initialize waves (you can add more waves here)
+        // Initialize waves with specific enemy types for the first three
         waves.Clear();
-        waves.Add(new Wave { numEnemies = 5, spawnDelay = 1f });  
-        waves.Add(new Wave { numEnemies = 8, spawnDelay = 1.5f });
-        waves.Add(new Wave { numEnemies = 12, spawnDelay = 0.8f }); 
+        waves.Add(new Wave { numEnemies = 5, spawnDelay = 1f });  // Wave 1: enemyType1
+        waves.Add(new Wave { numEnemies = 8, spawnDelay = 1.5f }); // Wave 2: enemyType2
+        waves.Add(new Wave { numEnemies = 12, spawnDelay = 0.8f }); // Wave 3: enemyType3
     }
 
     void Update()
@@ -52,9 +52,10 @@ public class EnemySpawner : MonoBehaviour
                     currentWave++;
                     enemiesSpawned = 0;
 
+                    // No more predefined waves, generate the next one
                     if (currentWave >= waves.Count)
                     {
-                        currentWave = 0; // Loop back to the first wave
+                        GenerateNextWave(); 
                     }
 
                     nextSpawnTime = Time.time + waves[currentWave].spawnDelay;
@@ -79,23 +80,9 @@ public class EnemySpawner : MonoBehaviour
 
         // Determine enemy type based on wave
         GameObject enemyPrefab;
-        if (currentWave == 0)
+        if (currentWave < 3) // First three waves
         {
-            enemyPrefab = enemyType1;
-        }
-        else if (currentWave == 1)
-        {
-            enemyPrefab = enemyType2;
-        }
-        else if (currentWave == 2)
-        {
-            enemyPrefab = enemyType3;
-        }
-        else
-        {
-            // Randomly select enemy type for waves after the first 3
-            int randomEnemyType = Random.Range(0, 3);
-            switch (randomEnemyType)
+            switch (currentWave)
             {
                 case 0:
                     enemyPrefab = enemyType1;
@@ -107,6 +94,10 @@ public class EnemySpawner : MonoBehaviour
                     enemyPrefab = enemyType3;
                     break;
             }
+        }
+        else // Waves after the first three
+        {
+            enemyPrefab = GetRandomEnemyType();
         }
 
         GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
@@ -125,5 +116,28 @@ public class EnemySpawner : MonoBehaviour
         {
             nextSpawnTime = Time.time + waves[currentWave].spawnDelay;
         }
+    }
+
+    GameObject GetRandomEnemyType()
+    {
+        int randomEnemyType = Random.Range(0, 3);
+        switch (randomEnemyType)
+        {
+            case 0:
+                return enemyType1;
+            case 1:
+                return enemyType2;
+            default:
+                return enemyType3;
+        }
+    }
+
+    void GenerateNextWave()
+    {
+        // Increase difficulty by adding more enemies and decreasing spawn delay
+        int numEnemies = waves[currentWave - 1].numEnemies + Random.Range(2, 5); 
+        float spawnDelay = Mathf.Max(0.2f, waves[currentWave - 1].spawnDelay * 0.9f); 
+
+        waves.Add(new Wave { numEnemies = numEnemies, spawnDelay = spawnDelay });
     }
 }

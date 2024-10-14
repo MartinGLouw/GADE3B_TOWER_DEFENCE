@@ -2713,17 +2713,11 @@ MonoBehaviour:
   enemyType3: {fileID: 4426775827656613681, guid: 7dbc7eb191eb29448a95cd3328af02ed, type: 3}
   waves:
   - numEnemies: 2
-    spawnDelay: 5
-  - numEnemies: 3
-    spawnDelay: 5
+    spawnDelay: 1
   - numEnemies: 1
-    spawnDelay: 5
-  - numEnemies: 3
-    spawnDelay: 5
-  - numEnemies: 3
-    spawnDelay: 5
-  - numEnemies: 3
-    spawnDelay: 5
+    spawnDelay: 1
+  - numEnemies: 1
+    spawnDelay: 1
 --- !u!1 &1835194882
 GameObject:
   m_ObjectHideFlags: 0
