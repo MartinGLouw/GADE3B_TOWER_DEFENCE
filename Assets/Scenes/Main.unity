@@ -918,8 +918,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce8c29343bc71741a8ebd1e2a4e6735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerHealthText: {fileID: 1466882708}
-  tower: {fileID: 8764722775357377633, guid: 196f413078efb704e855a8cc8ec315e7, type: 3}
   defenderTypes: []
 --- !u!114 &698142304
 MonoBehaviour:
@@ -2307,17 +2305,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b25fb40dea58d9f409450d908ec3d4b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1466882708 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 45806574579794782, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
-  m_PrefabInstance: {fileID: 8586651793300339883}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1591830995

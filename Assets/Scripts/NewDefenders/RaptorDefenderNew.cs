@@ -10,16 +10,14 @@ public class RaptorDefenderNew : DefenderNew
     public float attackCooldown = 2f; 
     public int meatCost = 20;
     public int damage = 30;
-    public Slider healthSlider;
+    
 
     private void Start()
     {
         Health = 100;
         Damage = damage; 
         MeatCost = meatCost; 
-        healthSlider.maxValue = Health; 
-        healthSlider.minValue = 0; 
-        healthSlider.value = Health;
+        
         StartCoroutine(DefendCoroutine());
     }
 

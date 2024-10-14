@@ -237,7 +237,6 @@ MonoBehaviour:
   projectilesCount: 3
   attackCooldown: 1.5
   meatCost: 30
-  healthSlider: {fileID: 0}
 --- !u!1 &6416666739026082143
 GameObject:
   m_ObjectHideFlags: 0

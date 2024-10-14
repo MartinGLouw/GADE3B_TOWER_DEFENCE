@@ -17,7 +17,6 @@ public abstract class EnemyNew : MonoBehaviour
 
     protected virtual IEnumerator AttackCoroutine()
     {
-        // Projectile spawning logic here
         yield return null;
     }
 

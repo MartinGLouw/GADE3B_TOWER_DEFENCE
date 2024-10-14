@@ -5,13 +5,13 @@ using UnityEngine;
 public class ClubCavemanNew : EnemyNew
 {
     public GameObject clubProjectilePrefab;
-    
 
+    public float attackCooldown = 2f;
     private void Start()
     {
         Health = 120f;
         Damage = 30f;
-        AttackCooldown = 2f;
+        AttackCooldown = 5f;
         StartCoroutine(AttackCoroutine());
     }
 

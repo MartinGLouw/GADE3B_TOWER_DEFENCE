@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour
             DefenderNew defender = DefenderFactoryNew.CreateDefender<DefenderNew>(defenderInfo.type, defenderInfo.position);
             if (defender != null)
             {
+                Debug.Log($"Defender {defender.name} created at {defenderInfo.position}");
+                
                 defenders.Add(defender);
                 StartCoroutine(defender.DefendCoroutine());
             }

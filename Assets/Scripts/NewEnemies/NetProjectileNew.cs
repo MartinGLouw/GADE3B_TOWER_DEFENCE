@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class NetProjectileNew : ProjectileNew
 {
-    public float disableDuration = 3f;
+    public float disableDuration = 5f;
     private float damage;
     
 

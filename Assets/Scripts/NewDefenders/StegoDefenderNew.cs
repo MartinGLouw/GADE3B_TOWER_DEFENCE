@@ -11,16 +11,13 @@ public class StegoDefenderNew : DefenderNew
     public int projectilesCount = 3; 
     public float attackCooldown = 1.5f; 
     public int meatCost = 30;
-    public Slider healthSlider;
+    
 
     private void Start()
     {
         Health = 80; 
         Damage = damage; 
         MeatCost = meatCost; 
-        healthSlider.maxValue = Health; 
-        healthSlider.minValue = 0; 
-        healthSlider.value = Health;
         StartCoroutine(DefendCoroutine());
     }
 
@@ -57,20 +54,24 @@ public class StegoDefenderNew : DefenderNew
             yield return null; 
         }
     }
-
     protected override void LaunchProjectile(GameObject target)
     {
-        Debug.Log($"{this.name} is launching a projectile at {target.name}.");
-        GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-        StegoProjectileNew stegoProjectile = projectile.GetComponent<StegoProjectileNew>();
+        Debug.Log($"{this.name} is launching {projectilesCount} projectiles at {target.name}.");
 
-        if (stegoProjectile != null)
+        for (int i = 0; i < projectilesCount; i++)
         {
-            stegoProjectile.Initialize(target, projectileSpeed, damage); 
-        }
-        else
-        {
-            Debug.LogError("Stego projectile prefab is missing the StegoProjectileNew component!");
+            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+            StegoProjectileNew stegoProjectile = projectile.GetComponent<StegoProjectileNew>();
+
+            if (stegoProjectile != null)
+            {
+                stegoProjectile.Initialize(target, projectileSpeed, damage); 
+            }
+            else
+            {
+                Debug.LogError("Stego projectile prefab is missing the StegoProjectileNew component!");
+            }
         }
     }
+    
 }

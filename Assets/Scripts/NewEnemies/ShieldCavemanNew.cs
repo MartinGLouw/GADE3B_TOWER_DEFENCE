@@ -38,14 +38,14 @@ public class ShieldCavemanNew : EnemyNew
             if (defenders.Length > 0)
             {
                 GameObject[] defendersInRange = defenders
-                    .Where(enemy => Vector3.Distance(transform.position, enemy.transform.position) <= AttackRange)
+                    .Where(defender => Vector3.Distance(transform.position, defender.transform.position) <= AttackRange)
                     .ToArray();
                 Debug.Log($"defender in range: {defendersInRange.Length}");
 
                 if (defendersInRange.Length > 0)
                 {
                     GameObject closesDefenderInRange = defendersInRange
-                        .OrderBy(enemy => Vector3.Distance(transform.position, enemy.transform.position))
+                        .OrderBy(defender => Vector3.Distance(transform.position, defender.transform.position))
                         .FirstOrDefault();
 
                     if (closesDefenderInRange != null && canShoot)

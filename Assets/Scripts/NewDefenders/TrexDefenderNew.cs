@@ -9,7 +9,7 @@ public class TrexDefenderNew : DefenderNew
     private bool isBuffed = false;
     public Vector2 Position { get; set; }
     public int meatCost = 50;
-    public Slider healthSlider;
+    
     
 
     private void Start()
@@ -18,10 +18,8 @@ public class TrexDefenderNew : DefenderNew
         Damage = 0; 
         AttackRange = 120f;
         MeatCost = meatCost;
-        healthSlider.maxValue = Health; 
-        healthSlider.minValue = 0; 
-        healthSlider.value = Health;
-        StartCoroutine(BuffDefendersCoroutine());
+      
+        StartCoroutine(DefendCoroutine());
         
     }
 
@@ -31,11 +29,6 @@ public class TrexDefenderNew : DefenderNew
     }
 
     public override IEnumerator DefendCoroutine()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    private IEnumerator BuffDefendersCoroutine()
     {
         while (true)
         {
@@ -68,6 +61,6 @@ public class TrexDefenderNew : DefenderNew
             yield return new WaitForSeconds(10f); 
         }
     }
-
-  
+   
+    
 }

@@ -234,7 +234,6 @@ MonoBehaviour:
   attackBuff: 10
   buffDuration: 9999
   meatCost: 50
-  healthSlider: {fileID: 0}
 --- !u!1 &6416666739026082143
 GameObject:
   m_ObjectHideFlags: 0

@@ -32,7 +32,7 @@ public class Tower : MonoBehaviour
     {
         Health = 600;
         Damage = 30;
-        AttRange = 100;
+        AttRange = 150;
         dead = false;
         endScreenCanvas.SetActive(false);
         UpdateTowerHealthText();
@@ -153,7 +153,7 @@ public class Tower : MonoBehaviour
     }
     public void UpdateTowerHealthText()
     {
-        TowerHealthText.SetText(Health.ToString());
+        TowerHealthText.SetText("Tower Health: " + Health.ToString());
     }
    
     

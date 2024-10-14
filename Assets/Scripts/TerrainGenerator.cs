@@ -11,7 +11,6 @@ public class TerrainGenerator : MonoBehaviour
     public Vector3 towerPosition;
     public int numberOfPaths = 3;
     public GameObject Tower;
-    public GameObject DefenderPrefab;
     public GameObject RaptorPrefab;
     public GameObject StegoPrefab;
     public GameObject TRexPrefab;
@@ -59,26 +58,25 @@ public class TerrainGenerator : MonoBehaviour
     public void SelectDefender(int defenderType)
     {
         selectedDefender = defenderType;
-
-        // Optional: Add visual feedback to the buttons (e.g., highlight the selected button)
+        
         switch (selectedDefender)
         {
             case 1:
-                stegoButton.image.color = Color.gray; // Deselect
-                trexButton.image.color = Color.gray; // Deselect
-                raptorButton.image.color = Color.green; // Select TRex
+                stegoButton.image.color = Color.gray; 
+                trexButton.image.color = Color.gray; 
+                raptorButton.image.color = Color.green; 
                 Debug.Log("Selected Raptor");
                 break;
             case 2:
-                raptorButton.image.color = Color.gray; // Deselect
-                trexButton.image.color = Color.gray; // Deselect
-                stegoButton.image.color = Color.green; // Select TRex
+                raptorButton.image.color = Color.gray; 
+                trexButton.image.color = Color.gray; 
+                stegoButton.image.color = Color.green; 
                 Debug.Log("Selected Stego");
                 break;
             case 3:
-                raptorButton.image.color = Color.gray; // Deselect
-                stegoButton.image.color = Color.gray; // Deselect
-                trexButton.image.color = Color.green; // Select TRex
+                raptorButton.image.color = Color.gray; 
+                stegoButton.image.color = Color.gray; 
+                trexButton.image.color = Color.green; 
                 Debug.Log("Selected TRex");
                 break;
         }
@@ -129,7 +127,7 @@ public class TerrainGenerator : MonoBehaviour
     {
         Vector2Int gridIndex = GetGridIndex(position);
 
-        // Determine defender prefab and cost based on selection
+        //Determine defender prefab and cost based on selection
         GameObject defenderPrefab = null;
         int meatCost = 0;
         switch (selectedDefender)
@@ -156,7 +154,7 @@ public class TerrainGenerator : MonoBehaviour
                 Vector3 gridPosition = GetGridPosition(gridIndex);
                 Instantiate(defenderPrefab, gridPosition, Quaternion.identity);
                 validDefenderLocations.Remove(gridIndex);
-                MeatManager.meat -= meatCost; // Deduct the meat cost
+                MeatManager.meat -= meatCost; //Deduct the meat cost
                 meatManager.UpdateMeatText();
                 Debug.Log($"Defender placed at Grid Index: {gridIndex} -> Position: {gridPosition}");
             }
