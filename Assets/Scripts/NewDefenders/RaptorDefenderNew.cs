@@ -10,15 +10,13 @@ public class RaptorDefenderNew : DefenderNew
     public float attackCooldown = 2f; 
     public int meatCost = 20;
     public int damage = 30;
-    public Slider healthSlider; // Add a health slider
 
     private void Start()
     {
         Health = 100;
         Damage = damage; 
         MeatCost = meatCost; 
-
-        // Initialize health slider
+        
         healthSlider.maxValue = Health;
         healthSlider.minValue = 0;
         healthSlider.value = Health;
@@ -75,8 +73,7 @@ public class RaptorDefenderNew : DefenderNew
             raptorProjectile.Initialize(target, projectileSpeed, damage); 
         }
     }
-
-    // Add a method to update the health slider
+    
     public void UpdateHealthSlider() 
     {
         healthSlider.value = Health;

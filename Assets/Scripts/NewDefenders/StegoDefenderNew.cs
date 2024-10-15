@@ -7,11 +7,11 @@ public class StegoDefenderNew : DefenderNew
 {
     public GameObject projectilePrefab;
     public float projectileSpeed = 15f; 
-    public int damage = 10; 
+    public int damage = 15; 
     public int projectilesCount = 3; 
     public float attackCooldown = 1.5f; 
     public int meatCost = 30;
-    public Slider healthSlider; // Add a health slider
+    
 
     private void Start()
     {
@@ -19,7 +19,6 @@ public class StegoDefenderNew : DefenderNew
         Damage = damage; 
         MeatCost = meatCost; 
 
-        // Initialize health slider
         healthSlider.maxValue = Health;
         healthSlider.minValue = 0;
         healthSlider.value = Health;
@@ -83,8 +82,7 @@ public class StegoDefenderNew : DefenderNew
     {
         UpdateHealthSlider();
     }
-
-    // Add a method to update the health slider
+    
     public void UpdateHealthSlider() 
     {
         healthSlider.value = Health;

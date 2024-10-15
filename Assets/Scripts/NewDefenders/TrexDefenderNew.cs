@@ -9,7 +9,7 @@ public class TrexDefenderNew : DefenderNew
     private bool isBuffed = false;
     public Vector2 Position { get; set; }
     public int meatCost = 50;
-    public Slider healthSlider; // Add a health slider
+   
     
     
 
@@ -20,7 +20,6 @@ public class TrexDefenderNew : DefenderNew
         AttackRange = 120f;
         MeatCost = meatCost;
 
-        // Initialize health slider
         healthSlider.maxValue = Health;
         healthSlider.minValue = 0;
         healthSlider.value = Health;
@@ -72,7 +71,6 @@ public class TrexDefenderNew : DefenderNew
         UpdateHealthSlider();
     }
 
-    // Add a method to update the health slider
     public void UpdateHealthSlider() 
     {
         healthSlider.value = Health;

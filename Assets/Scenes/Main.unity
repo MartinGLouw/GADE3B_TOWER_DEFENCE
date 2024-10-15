@@ -431,7 +431,6 @@ MonoBehaviour:
   towerPosition: {x: 0, y: 0, z: 0}
   numberOfPaths: 3
   Tower: {fileID: 7281053106240544960, guid: 196f413078efb704e855a8cc8ec315e7, type: 3}
-  DefenderPrefab: {fileID: 5066958387573949621, guid: 0cbea5207c8ce9044bd3f75b4248d46c, type: 3}
   RaptorPrefab: {fileID: 5066958387573949621, guid: 0cbea5207c8ce9044bd3f75b4248d46c, type: 3}
   StegoPrefab: {fileID: 5066958387573949621, guid: bf163c54c7a5ca545acc82889b188a38, type: 3}
   TRexPrefab: {fileID: 5066958387573949621, guid: aa4c1dd7c685c15498d501265dab10b4, type: 3}
@@ -2904,7 +2903,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1456504412490830929, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
       propertyPath: m_text
-      value: Steggo
+      value: 'Steggo: 30'
       objectReference: {fileID: 0}
     - target: {fileID: 2227011358448413091, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -2920,7 +2919,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2970267405425124363, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
       propertyPath: m_text
-      value: Raptor
+      value: 'Raptor: 20'
       objectReference: {fileID: 0}
     - target: {fileID: 3282579157921453574, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -2932,7 +2931,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4138029736809159628, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
       propertyPath: m_text
-      value: Trex
+      value: 'Trex: 50'
       objectReference: {fileID: 0}
     - target: {fileID: 4403161299437474237, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
       propertyPath: meatText
@@ -3022,6 +3021,8 @@ PrefabInstance:
     - {fileID: 4904756632069370134, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
     m_RemovedGameObjects:
     - {fileID: 4831665860595591267, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
+    - {fileID: 2666555124604690740, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
+    - {fileID: 7693981811628640931, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4626807745008477841, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}

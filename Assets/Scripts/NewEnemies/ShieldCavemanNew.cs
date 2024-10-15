@@ -1,12 +1,12 @@
 using UnityEngine;
 using System.Collections;
 using System.Linq;
-using UnityEngine.UI; // Add this for UI elements
+using UnityEngine.UI; 
 
 public class ShieldCavemanNew : EnemyNew
 {
     public GameObject shieldProjectilePrefab;
-    public Slider healthSlider; // Add a health slider
+    public Slider healthSlider; 
 
     private void Start()
     {
@@ -14,7 +14,6 @@ public class ShieldCavemanNew : EnemyNew
         Damage = 20f; 
         AttackCooldown = 3f;
 
-        // Initialize health slider
         healthSlider.maxValue = Health;
         healthSlider.minValue = 0;
         healthSlider.value = Health;
@@ -73,7 +72,7 @@ public class ShieldCavemanNew : EnemyNew
         UpdateHealthSlider();
     }
 
-    // Add a method to update the health slider
+   
     public void UpdateHealthSlider() 
     {
         healthSlider.value = Health;
