@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RaptorDefenderNew : DefenderNew
 {
@@ -15,6 +16,11 @@ public class RaptorDefenderNew : DefenderNew
         Health = 100;
         Damage = damage; 
         MeatCost = meatCost; 
+        
+        healthSlider.maxValue = Health;
+        healthSlider.minValue = 0;
+        healthSlider.value = Health;
+        
         StartCoroutine(DefendCoroutine());
     }
 
@@ -51,6 +57,10 @@ public class RaptorDefenderNew : DefenderNew
             yield return null; 
         }
     }
+    public void Update()
+    {
+        UpdateHealthSlider();
+    }
 
     protected override void LaunchProjectile(GameObject target)
     {
@@ -62,5 +72,10 @@ public class RaptorDefenderNew : DefenderNew
         {
             raptorProjectile.Initialize(target, projectileSpeed, damage); 
         }
+    }
+    
+    public void UpdateHealthSlider() 
+    {
+        healthSlider.value = Health;
     }
 }

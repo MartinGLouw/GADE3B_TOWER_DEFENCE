@@ -11,13 +11,15 @@ public abstract class DefenderNew : MonoBehaviour
     public Slider healthSlider;
 
     private bool isTakingDamage = false;
-    public bool canShoot = true; // Controls shooting
+    public bool canShoot = true; //Controls shooting
     protected float attackCooldown;
 
     protected virtual void Start()
     {
-        healthSlider.maxValue = Health;
+        healthSlider.maxValue = Health; 
+        healthSlider.minValue = 0; 
         healthSlider.value = Health;
+        DefendCoroutine();
     }
 
     public void TakeDamage(float damage)
@@ -72,7 +74,7 @@ public abstract class DefenderNew : MonoBehaviour
     private IEnumerator EnableShootingAfterDelay(float duration)
     {
         yield return new WaitForSeconds(duration);
-        canShoot = true; // Re-enable shooting
+        canShoot = true; //Re-enable shooting
     }
 
     protected abstract void LaunchProjectile(GameObject target); 

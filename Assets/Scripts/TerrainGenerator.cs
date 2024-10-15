@@ -27,10 +27,11 @@ public class TerrainGenerator : MonoBehaviour
     public Button trexButton;
     public Button stegoButton;
     public MeatManager meatManager;
-    public RaptorDefender raptorDefender;
-    private int selectedDefender = 1;
-    private static HashSet<Vector2Int> availableDefenderLocationsStatic = new HashSet<Vector2Int>(); 
+    private int selectedDefender;
+    private static HashSet<Vector2Int> availableDefenderLocationsStatic = new HashSet<Vector2Int>();
     public RaptorDefenderNew raptorDefenderNew;
+    public StegoDefenderNew stegoDefenderNew;
+    public TrexDefenderNew trexDefenderNew;
 
     void Start()
     {
@@ -53,38 +54,34 @@ public class TerrainGenerator : MonoBehaviour
         PopulateValidDefenderLocations();
         DrawGrid();
 
-        // Initialize the static HashSet if it's empty (only on the first run)
         if (availableDefenderLocationsStatic.Count == 0) 
         {
             availableDefenderLocationsStatic = new HashSet<Vector2Int>(validDefenderLocations);
         }
-
-        // Use the static HashSet for placing defenders
         validDefenderLocations = availableDefenderLocationsStatic; 
     }
     public void SelectDefender(int defenderType)
     {
         selectedDefender = defenderType;
-
-        // Optional: Add visual feedback to the buttons (e.g., highlight the selected button)
+        
         switch (selectedDefender)
         {
             case 1:
-                stegoButton.image.color = Color.gray; // Deselect
-                trexButton.image.color = Color.gray; // Deselect
-                raptorButton.image.color = Color.green; // Select TRex
+                stegoButton.image.color = Color.gray; 
+                trexButton.image.color = Color.gray; 
+                raptorButton.image.color = Color.green; 
                 Debug.Log("Selected Raptor");
                 break;
             case 2:
-                raptorButton.image.color = Color.gray; // Deselect
-                trexButton.image.color = Color.gray; // Deselect
-                stegoButton.image.color = Color.green; // Select TRex
+                raptorButton.image.color = Color.gray; 
+                trexButton.image.color = Color.gray; 
+                stegoButton.image.color = Color.green; 
                 Debug.Log("Selected Stego");
                 break;
             case 3:
-                raptorButton.image.color = Color.gray; // Deselect
-                stegoButton.image.color = Color.gray; // Deselect
-                trexButton.image.color = Color.green; // Select TRex
+                raptorButton.image.color = Color.gray; 
+                stegoButton.image.color = Color.gray; 
+                trexButton.image.color = Color.green; 
                 Debug.Log("Selected TRex");
                 break;
         }
@@ -135,7 +132,7 @@ public class TerrainGenerator : MonoBehaviour
     {
         Vector2Int gridIndex = GetGridIndex(position);
 
-        // Determine defender prefab and cost based on selection
+        //Determine defender prefab and cost based on selection
         GameObject defenderPrefab = null;
         int meatCost = 0;
         switch (selectedDefender)
@@ -146,27 +143,24 @@ public class TerrainGenerator : MonoBehaviour
                 break;
             case 2:
                 defenderPrefab = StegoPrefab;
-                meatCost = raptorDefenderNew.meatCost; // Assuming same cost as Raptor
+                meatCost = stegoDefenderNew.meatCost;
                 break;
             case 3:
-                defenderPrefab = TRexPrefab;
-                meatCost = raptorDefenderNew.meatCost; // Assuming same cost as Raptor
+                defenderPrefab = TRexPrefab; 
+                meatCost = trexDefenderNew.meatCost;
                 break;
         }
 
-        if (meatManager.meat >= meatCost)
+        if (MeatManager.meat >= meatCost)
         {
             if (validDefenderLocations.Contains(gridIndex))
             {
                 Debug.Log($"Defender Cost = {meatCost}");
                 Vector3 gridPosition = GetGridPosition(gridIndex);
                 Instantiate(defenderPrefab, gridPosition, Quaternion.identity);
-
-                // Remove the location from BOTH HashSets
                 availableDefenderLocationsStatic.Remove(gridIndex); 
                 validDefenderLocations.Remove(gridIndex);
-
-                meatManager.meat -= meatCost; // Deduct the meat cost
+                MeatManager.meat -= meatCost; //Deduct the meat cost
                 meatManager.UpdateMeatText();
                 Debug.Log($"Defender placed at Grid Index: {gridIndex} -> Position: {gridPosition}");
             }

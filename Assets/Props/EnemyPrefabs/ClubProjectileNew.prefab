@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 802807267801587941}
   - component: {fileID: 1640261983468664572}
   - component: {fileID: 5601050944988879568}
-  - component: {fileID: -5582735508689752705}
+  - component: {fileID: 43833813165537796}
   m_Layer: 0
   m_Name: ClubProjectileNew
   m_TagString: EP
@@ -30,8 +30,8 @@ Transform:
   m_GameObject: {fileID: 5796778622911980248}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 129.1, y: 33.424, z: 219.33}
-  m_LocalScale: {x: 6853.7847, y: 6853.7847, z: 6853.7847}
+  m_LocalPosition: {x: 129.1039, y: 33.42421, z: 219.32533}
+  m_LocalScale: {x: 7.304392, y: 7.304392, z: 7.304392}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 13aef869f5d5fe846ae895d7f594dd68, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -134,7 +134,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-5582735508689752705
+--- !u!114 &43833813165537796
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,3 +146,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7378788bfe457744a48df25bed9c789, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canShoot: 1

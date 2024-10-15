@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class NetProjectileNew : ProjectileNew
 {
-    public float disableDuration = 3f;
+    public float disableDuration = 5f;
     private float damage;
     
 
@@ -17,17 +17,18 @@ public class NetProjectileNew : ProjectileNew
         base.Initialize(target, speed);
         this.disableDuration = disableDuration;
     }
+    
 
-    protected override void OnTriggerEnter(Collider other)
+    protected override void DealDamage()
     {
-        if (other.CompareTag("Defender"))
+        DefenderNew defender = target.GetComponent<DefenderNew>();
+        if (defender != null)
         {
-            DefenderNew defender = other.GetComponent<DefenderNew>();
-            if (defender != null)
-            {
-                defender.DisableShooting(disableDuration); 
-            }
+            defender.DisableShooting(disableDuration); 
         }
-        base.OnTriggerEnter(other);
+        else
+        {
+            Debug.LogError("Target does not have an EnemyNew component!");
+        }
     }
 }

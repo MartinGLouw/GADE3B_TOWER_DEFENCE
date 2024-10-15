@@ -1,15 +1,24 @@
+using System.Collections;
 using UnityEngine;
 
 public abstract class EnemyNew : MonoBehaviour
 {
-    public float Health { get; protected set; }
+    public float Health { get; set; }
     public float Damage { get; protected set; }
     public float AttackRange { get; protected set; } = 120f;
     public float AttackCooldown { get; protected set; }
 
     protected float nextAttackTime;
+    public bool canShoot = true;
+    public virtual void Attack()
+    {
+        StartCoroutine(AttackCoroutine());
+    }
 
-    public abstract void Attack();
+    protected virtual IEnumerator AttackCoroutine()
+    {
+        yield return null;
+    }
 
     private void Update()
     {
@@ -33,4 +42,5 @@ public abstract class EnemyNew : MonoBehaviour
     {
         Destroy(gameObject);
     }
+    protected abstract void LaunchProjectile(GameObject target); 
 }

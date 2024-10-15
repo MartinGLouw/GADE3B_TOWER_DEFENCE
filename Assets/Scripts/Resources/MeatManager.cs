@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+using System;
 public class MeatManager : MonoBehaviour
 {
-    public int meat = 20;
+    public static int meat = 20;
     public int meatPerSecond = 1;
     public TextMeshProUGUI meatText;
     
