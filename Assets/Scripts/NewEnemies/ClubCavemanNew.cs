@@ -1,17 +1,26 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI; // Add this for UI elements
 
 public class ClubCavemanNew : EnemyNew
 {
     public GameObject clubProjectilePrefab;
 
     public float attackCooldown = 2f;
+    public Slider healthSlider; // Add a health slider
+
     private void Start()
     {
         Health = 120f;
         Damage = 30f;
         AttackCooldown = 5f;
+
+        // Initialize health slider
+        healthSlider.maxValue = Health; 
+        healthSlider.minValue = 0;  
+        healthSlider.value = Health; 
+
         StartCoroutine(AttackCoroutine());
     }
 
@@ -49,6 +58,10 @@ public class ClubCavemanNew : EnemyNew
         }
     }
 
+    public void Update()
+    {
+        UpdateHealthSlider();
+    }
     protected override void LaunchProjectile(GameObject target)
     {
         GameObject projectile = Instantiate(clubProjectilePrefab, transform.position, Quaternion.identity);
@@ -60,5 +73,9 @@ public class ClubCavemanNew : EnemyNew
         }
     }
 
-    
+    // Add a method to update the health slider
+    public void UpdateHealthSlider() 
+    {
+        healthSlider.value = Health;
+    }
 }

@@ -321,7 +321,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f16de8344dc37243b3f5d8a113eddfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canShoot: 1
   shieldProjectilePrefab: {fileID: 5796778622911980248, guid: 14dadedb5117b1a45be09eebc6f66ada, type: 3}
+  healthSlider: {fileID: 8884531749708924494}
 --- !u!1 &7175309533120665074
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,16 +1,24 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI; // Add this for UI elements
 
 public class NetCavemanNew : EnemyNew
 {
     public GameObject netProjectilePrefab;
+    public Slider healthSlider; // Add a health slider
 
     private void Start()
     {
         Health = 120f;
         Damage = 0f;
         AttackCooldown = 15f;
+
+        // Initialize health slider
+        healthSlider.maxValue = Health;
+        healthSlider.minValue = 0;
+        healthSlider.value = Health;
+
         StartCoroutine(AttackCoroutine());
     }
 
@@ -47,7 +55,10 @@ public class NetCavemanNew : EnemyNew
             yield return null; 
         }
     }
-    
+    public void Update()
+    {
+        UpdateHealthSlider();
+    }
 
     protected override void LaunchProjectile(GameObject target)
     {
@@ -59,5 +70,10 @@ public class NetCavemanNew : EnemyNew
             netProjectile.Initialize(target, 10f, 3f); 
         }
     }
-    
+
+    // Add a method to update the health slider
+    public void UpdateHealthSlider() 
+    {
+        healthSlider.value = Health;
+    }
 }

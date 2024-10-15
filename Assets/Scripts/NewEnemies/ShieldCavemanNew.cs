@@ -1,16 +1,24 @@
 using UnityEngine;
 using System.Collections;
 using System.Linq;
+using UnityEngine.UI; // Add this for UI elements
 
 public class ShieldCavemanNew : EnemyNew
 {
     public GameObject shieldProjectilePrefab;
+    public Slider healthSlider; // Add a health slider
 
     private void Start()
     {
         Health = 120f;
         Damage = 20f; 
         AttackCooldown = 3f;
+
+        // Initialize health slider
+        healthSlider.maxValue = Health;
+        healthSlider.minValue = 0;
+        healthSlider.value = Health;
+
         StartCoroutine(AttackCoroutine());
     }
 
@@ -59,5 +67,15 @@ public class ShieldCavemanNew : EnemyNew
 
             yield return null; 
         }
+    }
+    public void Update()
+    {
+        UpdateHealthSlider();
+    }
+
+    // Add a method to update the health slider
+    public void UpdateHealthSlider() 
+    {
+        healthSlider.value = Health;
     }
 }

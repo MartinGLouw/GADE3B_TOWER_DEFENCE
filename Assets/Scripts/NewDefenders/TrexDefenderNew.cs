@@ -9,6 +9,7 @@ public class TrexDefenderNew : DefenderNew
     private bool isBuffed = false;
     public Vector2 Position { get; set; }
     public int meatCost = 50;
+    public Slider healthSlider; // Add a health slider
     
     
 
@@ -18,6 +19,11 @@ public class TrexDefenderNew : DefenderNew
         Damage = 0; 
         AttackRange = 120f;
         MeatCost = meatCost;
+
+        // Initialize health slider
+        healthSlider.maxValue = Health;
+        healthSlider.minValue = 0;
+        healthSlider.value = Health;
       
         StartCoroutine(DefendCoroutine());
         
@@ -61,6 +67,15 @@ public class TrexDefenderNew : DefenderNew
             yield return new WaitForSeconds(10f); 
         }
     }
-   
+    public void Update()
+    {
+        UpdateHealthSlider();
+    }
+
+    // Add a method to update the health slider
+    public void UpdateHealthSlider() 
+    {
+        healthSlider.value = Health;
+    }
     
 }
