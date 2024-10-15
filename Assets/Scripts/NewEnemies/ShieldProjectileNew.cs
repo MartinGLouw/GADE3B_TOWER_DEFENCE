@@ -5,38 +5,62 @@ public class ShieldProjectileNew : ProjectileNew
 {
     private float damage;
     private bool hasHitFirstTime = false;
+    private bool returningToShooter = false;
+    private bool hasHitOnReturn = false;
+    private Transform shooterTransform;
+    private Vector3 flyPastPoint;
 
-    public override void Initialize(GameObject target, float speed, float damage)
+    public void Initialize(GameObject target, float speed, float damage, Transform shooter)
     {
         base.Initialize(target, speed);
-        this.damage = 20;
+        this.damage = 10;
+        this.shooterTransform = shooter;
+        flyPastPoint = target.transform.position + (target.transform.position - shooter.position).normalized * 2f;
+    }
+
+    protected void Update()
+    {
+        if (!returningToShooter)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, flyPastPoint, speed * Time.deltaTime);
+
+
+            if (Vector3.Distance(transform.position, flyPastPoint) < 0.1f && !hasHitFirstTime)
+            {
+                DealDamage();
+                returningToShooter = true;
+            }
+        }
+        else
+        {
+            transform.position =
+                Vector3.MoveTowards(transform.position, shooterTransform.position, speed * Time.deltaTime);
+
+
+            if (Vector3.Distance(transform.position, target.transform.position) < 0.1f && !hasHitOnReturn)
+            {
+                DealDamage();
+                hasHitOnReturn = true;
+            }
+
+
+            if (Vector3.Distance(transform.position, shooterTransform.position) < 0.1f)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
     protected override void DealDamage()
     {
-        if (!hasHitFirstTime)
-        {
-            hasHitFirstTime = true;
-            DefenderNew defender = target.GetComponent<DefenderNew>();
-            if (defender != null)
-            {
-                defender.TakeDamage(damage);
-                StartCoroutine(SecondHit(defender));
-            }
-            else
-            {
-                Debug.LogError("Target does not have an EnemyNew component!");
-            }
-        }
-    }
-
-    private IEnumerator SecondHit(DefenderNew defender)
-    {
-        yield return new WaitForSeconds(1f);
+        DefenderNew defender = target.GetComponent<DefenderNew>();
         if (defender != null)
         {
             defender.TakeDamage(damage);
         }
-        Destroy(gameObject);
+        else
+        {
+            Debug.LogError("Target does not have a DefenderNew component!");
+        }
     }
 }

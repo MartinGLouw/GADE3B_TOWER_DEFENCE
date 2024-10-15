@@ -29,11 +29,11 @@ public class EnemySpawner : MonoBehaviour
             Debug.LogError("EnemySpawner needs a reference to the TerrainGenerator!");
         }
 
-        // Initialize waves with specific enemy types for the first three
+        
         waves.Clear();
-        waves.Add(new Wave { numEnemies = 5, spawnDelay = 1f });  // Wave 1: enemyType1
-        waves.Add(new Wave { numEnemies = 8, spawnDelay = 1.5f }); // Wave 2: enemyType2
-        waves.Add(new Wave { numEnemies = 12, spawnDelay = 0.8f }); // Wave 3: enemyType3
+        waves.Add(new Wave { numEnemies = 5, spawnDelay = 1f });  
+        waves.Add(new Wave { numEnemies = 8, spawnDelay = 1.5f }); 
+        waves.Add(new Wave { numEnemies = 12, spawnDelay = 0.8f });
     }
 
     void Update()
@@ -51,8 +51,7 @@ public class EnemySpawner : MonoBehaviour
                     waitingForWaveEnd = false;
                     currentWave++;
                     enemiesSpawned = 0;
-
-                    // No more predefined waves, generate the next one
+                    
                     if (currentWave >= waves.Count)
                     {
                         GenerateNextWave(); 
@@ -77,10 +76,9 @@ public class EnemySpawner : MonoBehaviour
         int pathIndex = Random.Range(0, paths.Count);
         List<Vector3> path = paths[pathIndex];
         Vector3 spawnPosition = path[0];
-
-        // Determine enemy type based on wave
+        
         GameObject enemyPrefab;
-        if (currentWave < 3) // First three waves
+        if (currentWave < 3) 
         {
             switch (currentWave)
             {
@@ -95,7 +93,7 @@ public class EnemySpawner : MonoBehaviour
                     break;
             }
         }
-        else // Waves after the first three
+        else 
         {
             enemyPrefab = GetRandomEnemyType();
         }
@@ -134,7 +132,6 @@ public class EnemySpawner : MonoBehaviour
 
     void GenerateNextWave()
     {
-        // Increase difficulty by adding more enemies and decreasing spawn delay
         int numEnemies = waves[currentWave - 1].numEnemies + Random.Range(2, 5); 
         float spawnDelay = Mathf.Max(0.2f, waves[currentWave - 1].spawnDelay * 0.9f); 
 

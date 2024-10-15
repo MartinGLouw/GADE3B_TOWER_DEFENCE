@@ -1,17 +1,17 @@
 using UnityEngine;
 using System.Collections;
 using System.Linq;
-using UnityEngine.UI; 
+using UnityEngine.UI;
 
 public class ShieldCavemanNew : EnemyNew
 {
     public GameObject shieldProjectilePrefab;
-    public Slider healthSlider; 
+    public Slider healthSlider;
 
     private void Start()
     {
         Health = 120f;
-        Damage = 20f; 
+        Damage = 10f;
         AttackCooldown = 3f;
 
         healthSlider.maxValue = Health;
@@ -21,8 +21,6 @@ public class ShieldCavemanNew : EnemyNew
         StartCoroutine(AttackCoroutine());
     }
 
-  
-
     protected override void LaunchProjectile(GameObject target)
     {
         GameObject projectileInstance = Instantiate(shieldProjectilePrefab, transform.position, Quaternion.identity);
@@ -30,9 +28,10 @@ public class ShieldCavemanNew : EnemyNew
 
         if (shieldProjectile != null)
         {
-            shieldProjectile.Initialize(target, 10f, Damage); 
+            shieldProjectile.Initialize(target, 10f, Damage, transform);
         }
     }
+
 
     protected override IEnumerator AttackCoroutine()
     {
@@ -59,21 +58,21 @@ public class ShieldCavemanNew : EnemyNew
                     {
                         Debug.Log($"{this.name} found defender {closesDefenderInRange.name} in range.");
                         LaunchProjectile(closesDefenderInRange);
-                        yield return new WaitForSeconds(AttackCooldown); 
+                        yield return new WaitForSeconds(AttackCooldown);
                     }
                 }
             }
 
-            yield return null; 
+            yield return null;
         }
     }
+
     public void Update()
     {
         UpdateHealthSlider();
     }
 
-   
-    public void UpdateHealthSlider() 
+    public void UpdateHealthSlider()
     {
         healthSlider.value = Health;
     }

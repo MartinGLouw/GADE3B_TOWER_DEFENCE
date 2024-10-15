@@ -23,10 +23,7 @@ public class Tower : MonoBehaviour
     public  TextMeshProUGUI TowerHealthText;
 
      
-     
-     
     
-
 
     void Start()
     {
@@ -40,8 +37,6 @@ public class Tower : MonoBehaviour
         
         
     }
-
-    
     
 
     private IEnumerator TowerDefense()
@@ -64,8 +59,8 @@ public class Tower : MonoBehaviour
 
                     if (closestEnemyInRange != null)
                     {
-                        Console.WriteLine("Raptor attacks!"); //Updated message
-                        LaunchProjectile(closestEnemyInRange); //Launch projectile
+                        Console.WriteLine("Raptor attacks!"); 
+                        LaunchProjectile(closestEnemyInRange);
                         yield return new WaitForSeconds(attackCooldown);
                     }
                 }

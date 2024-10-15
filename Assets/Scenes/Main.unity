@@ -431,6 +431,7 @@ MonoBehaviour:
   towerPosition: {x: 0, y: 0, z: 0}
   numberOfPaths: 3
   Tower: {fileID: 7281053106240544960, guid: 196f413078efb704e855a8cc8ec315e7, type: 3}
+  DefenderPrefab: {fileID: 0}
   RaptorPrefab: {fileID: 5066958387573949621, guid: 0cbea5207c8ce9044bd3f75b4248d46c, type: 3}
   StegoPrefab: {fileID: 5066958387573949621, guid: bf163c54c7a5ca545acc82889b188a38, type: 3}
   TRexPrefab: {fileID: 5066958387573949621, guid: aa4c1dd7c685c15498d501265dab10b4, type: 3}
@@ -2655,7 +2656,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   terrainGenerator: {fileID: 324491511}
-  enemyType1: {fileID: 4426775827656613681, guid: 0d663a15d8194ce498f07ee06f861197, type: 3}
+  enemyType1: {fileID: 4426775827656613681, guid: 7dbc7eb191eb29448a95cd3328af02ed, type: 3}
   enemyType2: {fileID: 4426775827656613681, guid: b47e0ecc12fe2f345a4cb7fccbefbbdf, type: 3}
   enemyType3: {fileID: 4426775827656613681, guid: 7dbc7eb191eb29448a95cd3328af02ed, type: 3}
   waves:
