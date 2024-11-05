@@ -365,7 +365,7 @@ public class TerrainGenerator : MonoBehaviour
             {
                 Vector3 start = new Vector3(x * gridSpacing, 0, z * gridSpacing);
                 start.y = Terrain.activeTerrain.SampleHeight(start);
-                DrawLine(start, gridColor, x, z);
+               // DrawLine(start, gridColor, x, z);
             }
         }
     }
