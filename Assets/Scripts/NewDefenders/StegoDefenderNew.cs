@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class StegoDefenderNew : DefenderNew
 {
@@ -11,7 +10,6 @@ public class StegoDefenderNew : DefenderNew
     public int projectilesCount = 3; 
     public float attackCooldown = 1.5f; 
     public int meatCost = 30;
-    
 
     private void Start()
     {
@@ -59,6 +57,7 @@ public class StegoDefenderNew : DefenderNew
             yield return null; 
         }
     }
+
     protected override void LaunchProjectile(GameObject target)
     {
         Debug.Log($"{this.name} is launching {projectilesCount} projectiles at {target.name}.");
@@ -78,6 +77,7 @@ public class StegoDefenderNew : DefenderNew
             }
         }
     }
+
     public void Update()
     {
         UpdateHealthSlider();
@@ -86,5 +86,13 @@ public class StegoDefenderNew : DefenderNew
     public void UpdateHealthSlider() 
     {
         healthSlider.value = Health;
+    }
+
+    public override void Upgrade()
+    {
+        base.Upgrade();
+        damage += 3;          // Increase damage
+        projectilesCount++;   // Increase projectile count
+        Debug.Log("Stego upgraded! New damage: " + damage + ", New health: " + Health);
     }
 }

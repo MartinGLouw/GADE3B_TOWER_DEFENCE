@@ -10,6 +10,7 @@ public abstract class EnemyNew : MonoBehaviour
 
     protected float nextAttackTime;
     public bool canShoot = true;
+
     public virtual void Attack()
     {
         StartCoroutine(AttackCoroutine());
@@ -42,5 +43,6 @@ public abstract class EnemyNew : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
     protected abstract void LaunchProjectile(GameObject target); 
 }

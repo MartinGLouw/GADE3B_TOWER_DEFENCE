@@ -1,12 +1,15 @@
 using UnityEngine;
 
-public class EnemyFactoryNew
+public class EnemyFactoryNew : MonoBehaviour
 {
+    public GameObject proceduralEnemyPrefab; 
+
     public enum EnemyType
     {
         ClubCavemanNew,
         ShieldCavemanNew,
-        NetCavemanNew
+        NetCavemanNew,
+        ProceduralEnemy 
     }
 
     public static T CreateEnemy<T>(EnemyType type, Vector3 position) where T : MonoBehaviour
@@ -15,7 +18,6 @@ public class EnemyFactoryNew
 
         switch (type)
         {
-            
             case EnemyType.ClubCavemanNew:
                 enemyPrefab = Resources.Load<GameObject>("ClubCavemanNew");
                 break;
@@ -25,10 +27,12 @@ public class EnemyFactoryNew
             case EnemyType.NetCavemanNew:
                 enemyPrefab = Resources.Load<GameObject>("NetCavemanNew");
                 break;
+            case EnemyType.ProceduralEnemy:
+                enemyPrefab = Resources.Load<GameObject>("ProceduralEnemy");
+                break;
             default:
                 throw new System.ArgumentException("Invalid enemy type");
         }
-        Debug.LogError("loaded defender");
 
         if (enemyPrefab != null)
         {

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class RaptorDefenderNew : DefenderNew
 {
@@ -11,6 +10,7 @@ public class RaptorDefenderNew : DefenderNew
     public int meatCost = 20;
     public int damage = 30;
     public int Health;
+
     private void Start()
     {
         Health = 100;
@@ -57,6 +57,7 @@ public class RaptorDefenderNew : DefenderNew
             yield return null; 
         }
     }
+
     public void Update()
     {
         UpdateHealthSlider();
@@ -73,9 +74,15 @@ public class RaptorDefenderNew : DefenderNew
             raptorProjectile.Initialize(target, projectileSpeed, damage); 
         }
     }
-    
+
     public void UpdateHealthSlider() 
     {
         healthSlider.value = Health;
+    }
+
+    public override void Upgrade()
+    {
+        base.Upgrade();
+        Debug.Log("Raptor upgraded! New damage: " + Damage + ", New health: " + Health);
     }
 }

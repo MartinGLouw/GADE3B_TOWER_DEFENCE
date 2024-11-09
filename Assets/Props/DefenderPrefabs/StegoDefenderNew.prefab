@@ -233,8 +233,8 @@ MonoBehaviour:
   canShoot: 1
   projectilePrefab: {fileID: 5796778622911980248, guid: e3a54a05501807545ab309dcf1bdeeaf, type: 3}
   projectileSpeed: 15
-  damage: 10
-  projectilesCount: 3
+  damage: 76
+  projectilesCount: 17
   attackCooldown: 1.5
   meatCost: 30
 --- !u!1 &6416666739026082143
@@ -321,9 +321,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0.1
-  m_MaxValue: 100
+  m_MaxValue: 440
   m_WholeNumbers: 0
-  m_Value: 100
+  m_Value: 440
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
