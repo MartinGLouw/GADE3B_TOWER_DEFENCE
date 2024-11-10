@@ -147,3 +147,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canShoot: 1
+  bulletTrailConfig: {fileID: 0}

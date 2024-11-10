@@ -10,12 +10,19 @@ public class ShieldProjectileNew : ProjectileNew
     private Transform shooterTransform;
     private Vector3 flyPastPoint;
 
+    [SerializeField] private BulletTrailScriptableObject bulletTrailConfig;
+    private TrailRenderer trailRenderer;
+
     public void Initialize(GameObject target, float speed, float damage, Transform shooter)
     {
         base.Initialize(target, speed);
         this.damage = 10;
         this.shooterTransform = shooter;
         flyPastPoint = target.transform.position + (target.transform.position - shooter.position).normalized * 2f;
+
+        // Setup the Trail Renderer
+        trailRenderer = gameObject.AddComponent<TrailRenderer>();
+        bulletTrailConfig.SetupTrail(trailRenderer);
     }
 
     protected void Update()
@@ -23,7 +30,6 @@ public class ShieldProjectileNew : ProjectileNew
         if (!returningToShooter)
         {
             transform.position = Vector3.MoveTowards(transform.position, flyPastPoint, speed * Time.deltaTime);
-
 
             if (Vector3.Distance(transform.position, flyPastPoint) < 0.1f && !hasHitFirstTime)
             {
@@ -33,16 +39,13 @@ public class ShieldProjectileNew : ProjectileNew
         }
         else
         {
-            transform.position =
-                Vector3.MoveTowards(transform.position, shooterTransform.position, speed * Time.deltaTime);
-
+            transform.position = Vector3.MoveTowards(transform.position, shooterTransform.position, speed * Time.deltaTime);
 
             if (Vector3.Distance(transform.position, target.transform.position) < 0.1f && !hasHitOnReturn)
             {
                 DealDamage();
                 hasHitOnReturn = true;
             }
-
 
             if (Vector3.Distance(transform.position, shooterTransform.position) < 0.1f)
             {

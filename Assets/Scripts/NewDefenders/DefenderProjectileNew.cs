@@ -7,12 +7,21 @@ public abstract class DefenderProjectileNew : MonoBehaviour
     protected int damage; 
     protected GameObject target;
 
+    [SerializeField] private BulletTrailScriptableObject bulletTrailConfig;
+    [SerializeField] private GameObject damageParticleEffectPrefab; // Use GameObject type for the prefab
+    private TrailRenderer trailRenderer;
+
     public void Initialize(GameObject target, float projectileSpeed, int projectileDamage)
     {
         Debug.Log($"Projectile initialized, targeting {target.name}");
         this.target = target;
         this.speed = projectileSpeed;
         this.damage = projectileDamage;
+
+        // Setup the Trail Renderer
+        trailRenderer = gameObject.AddComponent<TrailRenderer>();
+        bulletTrailConfig.SetupTrail(trailRenderer);
+
         StartCoroutine(MoveToTarget());
     }
 
@@ -34,5 +43,12 @@ public abstract class DefenderProjectileNew : MonoBehaviour
         Destroy(gameObject); 
     }
 
-    protected abstract void DealDamage(); 
+    protected virtual void DealDamage()
+    {
+        // Instantiate and play the particle effect at the point of impact
+        if (damageParticleEffectPrefab != null)
+        {
+            Instantiate(damageParticleEffectPrefab, transform.position, Quaternion.identity).GetComponent<ParticleSystem>().Play();
+        }
+    }
 }

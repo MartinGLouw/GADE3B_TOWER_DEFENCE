@@ -147,4 +147,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifetime: 5
-  defender: {fileID: 0}
+  damage: 30
+  bulletTrailConfig: {fileID: 11400000, guid: bc830ae99858f5a4ea23b10651141a13, type: 2}
