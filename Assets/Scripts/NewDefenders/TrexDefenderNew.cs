@@ -9,9 +9,6 @@ public class TrexDefenderNew : DefenderNew
     private bool isBuffed = false;
     public Vector2 Position { get; set; }
     public int meatCost = 50;
-   
-    
-    
 
     private void Start()
     {
@@ -25,7 +22,6 @@ public class TrexDefenderNew : DefenderNew
         healthSlider.value = Health;
       
         StartCoroutine(DefendCoroutine());
-        
     }
 
     protected override void LaunchProjectile(GameObject target)
@@ -37,7 +33,6 @@ public class TrexDefenderNew : DefenderNew
     {
         while (true)
         {
-           
             GameObject[] defenders = GameObject.FindGameObjectsWithTag("Defender");
 
             foreach (var defender in defenders)
@@ -52,7 +47,6 @@ public class TrexDefenderNew : DefenderNew
             isBuffed = true; 
             yield return new WaitForSeconds(buffDuration); 
 
-            
             foreach (var defender in defenders)
             {
                 DefenderNew defenderComponent = defender.GetComponent<DefenderNew>();
@@ -66,6 +60,7 @@ public class TrexDefenderNew : DefenderNew
             yield return new WaitForSeconds(10f); 
         }
     }
+
     public void Update()
     {
         UpdateHealthSlider();
@@ -75,5 +70,11 @@ public class TrexDefenderNew : DefenderNew
     {
         healthSlider.value = Health;
     }
-    
+
+    public override void Upgrade()
+    {
+        base.Upgrade();
+        attackBuff += 5;
+        Debug.Log("T-Rex upgraded! New attack buff: " + attackBuff + ", New health: " + Health);
+    }
 }
