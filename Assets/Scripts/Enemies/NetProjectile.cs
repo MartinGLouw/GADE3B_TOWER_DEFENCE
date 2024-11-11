@@ -8,9 +8,15 @@ public class NetProjectile : MonoBehaviour
     private NetCaveman netCaveman;
     public int damage = 0;
 
+    [SerializeField] private BulletTrailScriptableObject bulletTrailConfig;
+    private TrailRenderer trailRenderer;
+
     private void Start()
     {
-        
+        // Setup the Trail Renderer
+        trailRenderer = gameObject.AddComponent<TrailRenderer>();
+        bulletTrailConfig.SetupTrail(trailRenderer);
+
         Destroy(gameObject, lifetime);
     }
 
@@ -21,12 +27,8 @@ public class NetProjectile : MonoBehaviour
             IEnemy enemy = other.gameObject.GetComponent<IEnemy>();
             if (netCaveman != null)
             {
-                
+                netCaveman.HitDefender(other.gameObject, disableDuration);
             }
-            netCaveman.HitDefender(other.gameObject, disableDuration);
-            
         }
     }
-
-   
 }

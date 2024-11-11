@@ -146,3 +146,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71ad8e1e8bb35f44bb449db6bb8f3de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletTrailConfig: {fileID: 11400000, guid: bc830ae99858f5a4ea23b10651141a13, type: 2}
+  damageParticleEffectPrefab: {fileID: 6011541501284309019, guid: a57e7c83b8f70a54dba249a68502a282, type: 3}
