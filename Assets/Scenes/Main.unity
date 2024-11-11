@@ -3836,7 +3836,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1456504412490830929, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
       propertyPath: m_text
-      value: 'Steggo: 30'
+      value: 'Steggo Turret: 30'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456504412490830929, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
+      propertyPath: m_fontSize
+      value: 20.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456504412490830929, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2227011358448413091, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -3852,7 +3860,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2970267405425124363, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
       propertyPath: m_text
-      value: 'Raptor: 20'
+      value: 'Raptor Turret: 20'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2970267405425124363, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
+      propertyPath: m_fontSize
+      value: 21.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2970267405425124363, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3282579157921453574, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -3864,7 +3880,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4138029736809159628, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
       propertyPath: m_text
-      value: 'Trex: 50'
+      value: 'TrexAmplifier: 50'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4138029736809159628, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
+      propertyPath: m_fontSize
+      value: 21.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4138029736809159628, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4403161299437474237, guid: a986f08259813554f8511ffc9eee8ce5, type: 3}
       propertyPath: meatText
