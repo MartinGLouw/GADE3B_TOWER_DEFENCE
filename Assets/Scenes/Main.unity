@@ -3463,6 +3463,7 @@ MonoBehaviour:
   enemyType1: {fileID: 4426775827656613681, guid: 7dbc7eb191eb29448a95cd3328af02ed, type: 3}
   enemyType2: {fileID: 4426775827656613681, guid: b47e0ecc12fe2f345a4cb7fccbefbbdf, type: 3}
   enemyType3: {fileID: 4426775827656613681, guid: 7dbc7eb191eb29448a95cd3328af02ed, type: 3}
+  enemyType4: {fileID: 4426775827656613681, guid: e5578a5c22fdac54f8d1c008203f112d, type: 3}
   waves:
   - numEnemies: 2
     spawnDelay: 1

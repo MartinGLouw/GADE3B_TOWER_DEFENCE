@@ -7,7 +7,7 @@ public class EnemySpawner : MonoBehaviour
     public GameObject enemyType1;
     public GameObject enemyType2;
     public GameObject enemyType3;
-
+    public GameObject enemyType4;
     public List<Wave> waves; 
 
     private int currentWave = 0;
@@ -78,15 +78,18 @@ public class EnemySpawner : MonoBehaviour
         Vector3 spawnPosition = path[0];
         
         GameObject enemyPrefab;
-        if (currentWave < 3) 
+        if (currentWave < 4) 
         {
             switch (currentWave)
             {
                 case 0:
-                    enemyPrefab = enemyType1;
+                    enemyPrefab = enemyType4;
                     break;
                 case 1:
                     enemyPrefab = enemyType2;
+                    break;
+                case 2:
+                    enemyPrefab = enemyType1;
                     break;
                 default:
                     enemyPrefab = enemyType3;
@@ -125,6 +128,8 @@ public class EnemySpawner : MonoBehaviour
                 return enemyType1;
             case 1:
                 return enemyType2;
+            case 2:
+                return enemyType4;
             default:
                 return enemyType3;
         }
