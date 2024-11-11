@@ -1,9 +1,8 @@
 using UnityEngine;
 
-public class DefenProjectile : MonoBehaviour
+public class DefenProjectile : DefenderProjectileNew
 {
     public float lifetime = 5f; 
-    public int damage = 30;
 
     [SerializeField] private BulletTrailScriptableObject bulletTrailConfig;
     private TrailRenderer trailRenderer;
@@ -15,23 +14,22 @@ public class DefenProjectile : MonoBehaviour
         bulletTrailConfig.SetupTrail(trailRenderer);
 
         Destroy(gameObject, lifetime);
+        speed = 15f;
+        damage = 30; 
     }
 
-    public void OnTriggerEnter(Collider other)
+    protected override void DealDamage()
     {
-        // Check if collided
-        if (other.gameObject.CompareTag("Enemy"))
+        
+        EnemyNew enemy = target.GetComponent<EnemyNew>();
+        if (enemy != null)
         {
-            Debug.Log("EnemyHit");
-            
-            IEnemy enemy = other.gameObject.GetComponent<IEnemy>();
-            if (enemy != null)
-            {
-                // Implement the interaction with the enemy
-            }
-
-            // Destroy the projectile
-            Destroy(gameObject);
+            enemy.TakeDamage(damage);
         }
+        else
+        {
+            Debug.LogError("Target does not have an EnemyNew component!");
+        }
+        Destroy(gameObject);
     }
 }

@@ -1,21 +1,31 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StegoDefenderNew : DefenderNew
 {
     public GameObject projectilePrefab;
-    public float projectileSpeed = 15f; 
-    public int damage = 15; 
-    public int projectilesCount = 3; 
-    public float attackCooldown = 1.5f; 
+    public float projectileSpeed = 15f;
+    public int damage = 15;
+    public int projectilesCount = 3;
+    public float attackCooldown = 1.5f;
     public int meatCost = 30;
+
+    public GameObject initialAppearance; 
+    public GameObject firstUpgradeAppearance; 
+    public GameObject secondUpgradeAppearance; 
+
+    public Slider healthSlider;
+
+    private int upgradeLevel = 0; 
+    private int upgradeCost = 100; 
 
     private void Start()
     {
-        Health = 80; 
-        Damage = damage; 
-        MeatCost = meatCost; 
+        Health = 80;
+        Damage = damage;
+        MeatCost = meatCost;
 
         healthSlider.maxValue = Health;
         healthSlider.minValue = 0;
@@ -49,12 +59,12 @@ public class StegoDefenderNew : DefenderNew
                     {
                         Debug.Log($"{this.name} found enemy {closestEnemyInRange.name} in range.");
                         LaunchProjectile(closestEnemyInRange);
-                        yield return new WaitForSeconds(attackCooldown); 
+                        yield return new WaitForSeconds(attackCooldown);
                     }
                 }
             }
 
-            yield return null; 
+            yield return null;
         }
     }
 
@@ -69,7 +79,7 @@ public class StegoDefenderNew : DefenderNew
 
             if (stegoProjectile != null)
             {
-                stegoProjectile.Initialize(target, projectileSpeed, damage); 
+                stegoProjectile.Initialize(target, projectileSpeed, damage);
             }
             else
             {
@@ -82,17 +92,54 @@ public class StegoDefenderNew : DefenderNew
     {
         UpdateHealthSlider();
     }
-    
-    public void UpdateHealthSlider() 
+
+    public void UpdateHealthSlider()
     {
         healthSlider.value = Health;
     }
 
     public override void Upgrade()
     {
-        base.Upgrade();
-        damage += 3;          // Increase damage
-        projectilesCount++;   // Increase projectile count
-        Debug.Log("Stego upgraded! New damage: " + damage + ", New health: " + Health);
+        if (MeatManager.meat >= upgradeCost)
+        {
+            //Deduct the meat cost
+            MeatManager.meat -= upgradeCost;
+
+            //Increase stats
+            damage += 3;         
+            projectilesCount++; 
+            Health += 30;         
+            UpdateHealthSlider();
+
+            //upgrade cost
+            upgradeCost += 100;
+
+            //Update the meat text
+            FindObjectOfType<MeatManager>().UpdateMeatText();
+
+            //Update upgrade level and appearance
+            upgradeLevel++;
+            UpdateAppearance();
+
+            Debug.Log("Stego upgraded! New damage: " + damage + ", New health: " + Health);
+        }
+        else
+        {
+            Debug.Log("Not enough meat to upgrade!");
+        }
+    }
+
+    private void UpdateAppearance()
+    {
+        if (upgradeLevel == 1)
+        {
+            initialAppearance.SetActive(false);
+            firstUpgradeAppearance.SetActive(true);
+        }
+        else if (upgradeLevel == 2)
+        {
+            firstUpgradeAppearance.SetActive(false);
+            secondUpgradeAppearance.SetActive(true);
+        }
     }
 }

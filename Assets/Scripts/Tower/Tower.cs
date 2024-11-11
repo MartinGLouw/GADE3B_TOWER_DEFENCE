@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using TMPro;
-using Unity.VisualScripting;
+using UnityEngine.UI;
 
 public class Tower : MonoBehaviour
 {
@@ -20,10 +20,16 @@ public class Tower : MonoBehaviour
     public int Damage = 30;
     public bool dead = false;
     public GameObject endScreenCanvas;
-    public  TextMeshProUGUI TowerHealthText;
+    public TextMeshProUGUI TowerHealthText;
+    public TextMeshProUGUI UpgradeText;
+    public Button upgradeButton;
 
-     
-    
+    public GameObject initialAppearance; // Reference to the initial appearance of the tower
+    public GameObject firstUpgradeAppearance; // Reference to the appearance after the first upgrade
+    public GameObject secondUpgradeAppearance; // Reference to the appearance after the second upgrade
+
+    private int upgradeLevel = 0; // Track the number of upgrades
+    private int upgradeCost = 100; // Initial upgrade cost
 
     void Start()
     {
@@ -34,10 +40,9 @@ public class Tower : MonoBehaviour
         endScreenCanvas.SetActive(false);
         UpdateTowerHealthText();
         StartCoroutine(TowerDefense());
-        
-        
+
+        upgradeButton.onClick.AddListener(UpgradeTower); // Link the button to the upgrade method
     }
-    
 
     private IEnumerator TowerDefense()
     {
@@ -59,7 +64,7 @@ public class Tower : MonoBehaviour
 
                     if (closestEnemyInRange != null)
                     {
-                        Console.WriteLine("Raptor attacks!"); 
+                        Debug.Log("Tower attacks!");
                         LaunchProjectile(closestEnemyInRange);
                         yield return new WaitForSeconds(attackCooldown);
                     }
@@ -69,6 +74,7 @@ public class Tower : MonoBehaviour
             yield return null;
         }
     }
+    
     private void LaunchProjectile(GameObject target)
     {
         GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
@@ -94,19 +100,16 @@ public class Tower : MonoBehaviour
         }
         if (other.gameObject.CompareTag("EP"))
         {
-            if(Health > 0)
+            if (Health > 0)
             {
                 Health -= Damage;
                 UpdateTowerHealthText();
             }
             else
             {
-               
                 Destroy(gameObject);
-                
             }
         }
-        
     }
 
     void OnTriggerExit(Collider other)
@@ -127,7 +130,6 @@ public class Tower : MonoBehaviour
             Attack(enemiesInRange[0]);
             lastAttackTime = Time.time;
         }
-        
     }
 
     void Attack(EnemyNew enemy)
@@ -140,16 +142,62 @@ public class Tower : MonoBehaviour
     {
         if (Health == 0)
         {
-            Debug.Log("DEadddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
+            Debug.Log("Tower is dead.");
             dead = true;
             endScreenCanvas.SetActive(true);
-          
         }
     }
+
     public void UpdateTowerHealthText()
     {
         TowerHealthText.SetText("Tower Health: " + Health.ToString());
     }
-   
-    
+
+    public void UpgradeTower()
+    {
+        if (MeatManager.meat >= upgradeCost)
+        {
+            // Deduct the meat cost
+            MeatManager.meat -= upgradeCost;
+
+            // Increase stats
+            attackDamage += 10;
+            attackCooldown -= 0.5f;
+            if (attackCooldown < 1f) attackCooldown = 1f; // Prevent cooldown from becoming too low
+            AttRange += 20;
+            Health += 100;
+            UpdateTowerHealthText();
+
+            // Increment the upgrade cost
+            upgradeCost += 100;
+
+            // Update the meat text
+            FindObjectOfType<MeatManager>().UpdateMeatText();
+
+            // Update upgrade status
+            upgradeLevel++;
+            UpdateAppearance();
+            UpgradeText.SetText("Tower Upgraded! Attack Damage: " + attackDamage + ", Cooldown: " + attackCooldown + "s, Range: " + AttRange + ", Health: " + Health);
+            Debug.Log("Tower upgraded!");
+        }
+        else
+        {
+            UpgradeText.SetText("Not enough meat to upgrade!");
+            Debug.Log("Not enough meat to upgrade!");
+        }
+    }
+
+    private void UpdateAppearance()
+    {
+        if (upgradeLevel == 1)
+        {
+            initialAppearance.SetActive(false);
+            firstUpgradeAppearance.SetActive(true);
+        }
+        else if (upgradeLevel == 2)
+        {
+            firstUpgradeAppearance.SetActive(false);
+            secondUpgradeAppearance.SetActive(true);
+        }
+    }
 }

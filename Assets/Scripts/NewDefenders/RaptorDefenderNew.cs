@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RaptorDefenderNew : DefenderNew
 {
@@ -10,6 +11,15 @@ public class RaptorDefenderNew : DefenderNew
     public int meatCost = 20;
     public int damage = 30;
     public int Health;
+
+    public GameObject initialAppearance; 
+    public GameObject firstUpgradeAppearance; 
+    public GameObject secondUpgradeAppearance; 
+
+    public Slider healthSlider;
+
+    private int upgradeLevel = 0; 
+    private int upgradeCost = 100; 
 
     private void Start()
     {
@@ -82,7 +92,47 @@ public class RaptorDefenderNew : DefenderNew
 
     public override void Upgrade()
     {
-        base.Upgrade();
-        Debug.Log("Raptor upgraded! New damage: " + Damage + ", New health: " + Health);
+        if (MeatManager.meat >= upgradeCost)
+        {
+            //Deduct the meat cost
+            MeatManager.meat -= upgradeCost;
+
+            //Increase stats
+            Damage += 10;
+            Health += 50;
+            attackCooldown -= 0.5f;
+            if (attackCooldown < 1f) attackCooldown = 1f; 
+            UpdateHealthSlider();
+
+            //Upgrade cost
+            upgradeCost += 100;
+
+            //Update the meat text
+            FindObjectOfType<MeatManager>().UpdateMeatText();
+
+            //Update upgrade level and appearance
+            upgradeLevel++;
+            UpdateAppearance();
+            
+            Debug.Log("Raptor upgraded! New damage: " + Damage + ", New health: " + Health);
+        }
+        else
+        {
+            Debug.Log("Not enough meat to upgrade!");
+        }
+    }
+
+    private void UpdateAppearance()
+    {
+        if (upgradeLevel == 1)
+        {
+            initialAppearance.SetActive(false);
+            firstUpgradeAppearance.SetActive(true);
+        }
+        else if (upgradeLevel == 2)
+        {
+            firstUpgradeAppearance.SetActive(false);
+            secondUpgradeAppearance.SetActive(true);
+        }
     }
 }

@@ -69,7 +69,7 @@ public class NetCaveman : Enemy
         {
             if (Health > 0)
             {
-                Health -= DefenProjectile.damage; 
+                //Health -= DefenProjectile.damage; 
                 healthSliderNet.value = Health;
             }
 
